@@ -104,33 +104,27 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     }
     
     func scheduleBeamAttacks() {
-        
         print("beam attack scheduled")
+        // Array of (time, pan, attackPattern, delay) tuples
         let attackTimes: [(time: TimeInterval, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
-            (3.29, -1.0, 1, 0.25),
-            (6.05, 1.0, 2, 0.08),
-            (8.12, -1.0, 1, 0.25),
-            (12.06, 1.0, 1, 0.25),
-            (15.03, -1.0, 1, 0.25),
-            (17.28, 1.0, 2, 0.08),
-            (20.06, -1.0, 2, 0.08),
-            (21.26, 1.0, 1, 0.25),
-            (23.16, -1.0, 2, 0.08)
+            (3.29, -1.0, 1, 0.5),
+            (6.05, 1.0, 2, 0.7),
+            (8.12, -1.0, 1, 0.5),
+            (12.06, 1.0, 1, 0.5),
+            (15.03, -1.0, 1, 0.5),
+            (17.28, 1.0, 2, 0.7),
+            (20.06, -1.0, 2, 0.7),
+            (21.26, 1.0, 1, 0.5),
+            (23.16, -1.0, 2, 0.7)
         ]
         
-        let currentSongPosition = conductor.songPosition
-        
         for attack in attackTimes {
-            let startSongPosition = currentSongPosition + attack.time
-            let attackTimetoSongPos = startSongPosition - currentSongPosition
-            
             let attackTask = DispatchWorkItem { [weak self] in
-                print("Executing attack at time \(attackTimetoSongPos)")
+                print("Executing attack at time \(attack.time)")
                 self?.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
             }
-            
             scheduledAttackTasks.append(attackTask)
-            DispatchQueue.main.asyncAfter(deadline: .now() + attackTimetoSongPos, execute: attackTask)
+            DispatchQueue.main.asyncAfter(deadline: .now() + attack.time - 0.1, execute: attackTask)
         }
     }
     
