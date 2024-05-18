@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BB4E87C02BF4632C00C08965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87BF2BF4632C00C08965 /* AppDelegate.swift */; };
-		BB4E87C22BF4632C00C08965 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BB4E87C12BF4632C00C08965 /* GameScene.sks */; };
 		BB4E87C42BF4632C00C08965 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = BB4E87C32BF4632C00C08965 /* Actions.sks */; };
-		BB4E87C62BF4632C00C08965 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87C52BF4632C00C08965 /* GameScene.swift */; };
 		BB4E87C82BF4632C00C08965 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87C72BF4632C00C08965 /* GameViewController.swift */; };
 		BB4E87CB2BF4632C00C08965 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BB4E87CA2BF4632C00C08965 /* Base */; };
 		BB4E87CD2BF4632D00C08965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB4E87CC2BF4632D00C08965 /* Assets.xcassets */; };
@@ -18,6 +16,19 @@
 		BB4E87DA2BF4632E00C08965 /* BlindBeatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87D92BF4632E00C08965 /* BlindBeatTests.swift */; };
 		BB4E87E42BF4632E00C08965 /* BlindBeatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87E32BF4632E00C08965 /* BlindBeatUITests.swift */; };
 		BB4E87E62BF4632E00C08965 /* BlindBeatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87E52BF4632E00C08965 /* BlindBeatUITestsLaunchTests.swift */; };
+		BB4E87F32BF468FE00C08965 /* DodgeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BB4E87F22BF468FE00C08965 /* DodgeScene.sks */; };
+		BB4E87F52BF4698500C08965 /* DodgeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87F42BF4698500C08965 /* DodgeScene.swift */; };
+		BB4E87F72BF46AA400C08965 /* ViewTes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87F62BF46AA400C08965 /* ViewTes.swift */; };
+		BB4E87FD2BF49B0D00C08965 /* AttackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87FC2BF49B0D00C08965 /* AttackBox.swift */; };
+		BB4E88032BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4E88022BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 */; };
+		BB4E88072BF4C21700C08965 /* AttackAlarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB4E88062BF4C21700C08965 /* AttackAlarm.wav */; };
+		BB4E88092BF4C30500C08965 /* AttackSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB4E88082BF4C30500C08965 /* AttackSound.wav */; };
+		BB4E880B2BF5FBAB00C08965 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E880A2BF5FBAB00C08965 /* Conductor.swift */; };
+		BB4E880F2BF6051B00C08965 /* MainMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4E880E2BF6051B00C08965 /* MainMusic.mp3 */; };
+		BBFC3BBF2BF74C460098147D /* CollisionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */; };
+		BBFC3BC12BF891800098147D /* HeatleyBros-8BitHero.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */; };
+		BBFC3BC32BF8922A0098147D /* Beam-Attack-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */; };
+		BBFC3BC52BF892300098147D /* Beam-Attack-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC42BF892300098147D /* Beam-Attack-2.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,9 +51,7 @@
 /* Begin PBXFileReference section */
 		BB4E87BC2BF4632C00C08965 /* BlindBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlindBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB4E87BF2BF4632C00C08965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BB4E87C12BF4632C00C08965 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		BB4E87C32BF4632C00C08965 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		BB4E87C52BF4632C00C08965 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		BB4E87C72BF4632C00C08965 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		BB4E87CA2BF4632C00C08965 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB4E87CC2BF4632D00C08965 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,6 +61,19 @@
 		BB4E87DF2BF4632E00C08965 /* BlindBeatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlindBeatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB4E87E32BF4632E00C08965 /* BlindBeatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlindBeatUITests.swift; sourceTree = "<group>"; };
 		BB4E87E52BF4632E00C08965 /* BlindBeatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlindBeatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BB4E87F22BF468FE00C08965 /* DodgeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DodgeScene.sks; sourceTree = "<group>"; };
+		BB4E87F42BF4698500C08965 /* DodgeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeScene.swift; sourceTree = "<group>"; };
+		BB4E87F62BF46AA400C08965 /* ViewTes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTes.swift; sourceTree = "<group>"; };
+		BB4E87FC2BF49B0D00C08965 /* AttackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackBox.swift; sourceTree = "<group>"; };
+		BB4E88022BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "pulse-laser-blast-135820.mp3"; path = "../../../BlindBeat sounds/pulse-laser-blast-135820.mp3"; sourceTree = "<group>"; };
+		BB4E88062BF4C21700C08965 /* AttackAlarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = AttackAlarm.wav; path = "../../../BlindBeat sounds/AttackAlarm.wav"; sourceTree = "<group>"; };
+		BB4E88082BF4C30500C08965 /* AttackSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = AttackSound.wav; path = "../../../BlindBeat sounds/AttackSound.wav"; sourceTree = "<group>"; };
+		BB4E880A2BF5FBAB00C08965 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		BB4E880E2BF6051B00C08965 /* MainMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = MainMusic.mp3; path = "../../../BlindBeat sounds/MainMusic.mp3"; sourceTree = "<group>"; };
+		BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionCategory.swift; sourceTree = "<group>"; };
+		BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "HeatleyBros-8BitHero.mp3"; path = "../../../BlindBeat sounds/HeatleyBros-8BitHero.mp3"; sourceTree = "<group>"; };
+		BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-1.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-1.mp3"; sourceTree = "<group>"; };
+		BBFC3BC42BF892300098147D /* Beam-Attack-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-2.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-2.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +124,15 @@
 		BB4E87BE2BF4632C00C08965 /* BlindBeat */ = {
 			isa = PBXGroup;
 			children = (
+				BB4E88012BF4C02100C08965 /* Audios */,
 				BB4E87BF2BF4632C00C08965 /* AppDelegate.swift */,
-				BB4E87C12BF4632C00C08965 /* GameScene.sks */,
+				BB4E87F62BF46AA400C08965 /* ViewTes.swift */,
+				BB4E87F22BF468FE00C08965 /* DodgeScene.sks */,
 				BB4E87C32BF4632C00C08965 /* Actions.sks */,
-				BB4E87C52BF4632C00C08965 /* GameScene.swift */,
+				BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */,
+				BB4E880A2BF5FBAB00C08965 /* Conductor.swift */,
+				BB4E87FC2BF49B0D00C08965 /* AttackBox.swift */,
+				BB4E87F42BF4698500C08965 /* DodgeScene.swift */,
 				BB4E87C72BF4632C00C08965 /* GameViewController.swift */,
 				BB4E87C92BF4632C00C08965 /* Main.storyboard */,
 				BB4E87CC2BF4632D00C08965 /* Assets.xcassets */,
@@ -129,6 +156,20 @@
 				BB4E87E52BF4632E00C08965 /* BlindBeatUITestsLaunchTests.swift */,
 			);
 			path = BlindBeatUITests;
+			sourceTree = "<group>";
+		};
+		BB4E88012BF4C02100C08965 /* Audios */ = {
+			isa = PBXGroup;
+			children = (
+				BB4E88062BF4C21700C08965 /* AttackAlarm.wav */,
+				BB4E880E2BF6051B00C08965 /* MainMusic.mp3 */,
+				BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */,
+				BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */,
+				BBFC3BC42BF892300098147D /* Beam-Attack-2.mp3 */,
+				BB4E88082BF4C30500C08965 /* AttackSound.wav */,
+				BB4E88022BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 */,
+			);
+			path = Audios;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,11 +276,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB4E87C22BF4632C00C08965 /* GameScene.sks in Resources */,
 				BB4E87CB2BF4632C00C08965 /* Base in Resources */,
 				BB4E87CD2BF4632D00C08965 /* Assets.xcassets in Resources */,
+				BBFC3BC32BF8922A0098147D /* Beam-Attack-1.mp3 in Resources */,
+				BB4E880F2BF6051B00C08965 /* MainMusic.mp3 in Resources */,
+				BBFC3BC52BF892300098147D /* Beam-Attack-2.mp3 in Resources */,
+				BB4E88032BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 in Resources */,
 				BB4E87C42BF4632C00C08965 /* Actions.sks in Resources */,
+				BB4E88072BF4C21700C08965 /* AttackAlarm.wav in Resources */,
+				BBFC3BC12BF891800098147D /* HeatleyBros-8BitHero.mp3 in Resources */,
+				BB4E87F32BF468FE00C08965 /* DodgeScene.sks in Resources */,
 				BB4E87D02BF4632D00C08965 /* Base in Resources */,
+				BB4E88092BF4C30500C08965 /* AttackSound.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,8 +312,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB4E87C62BF4632C00C08965 /* GameScene.swift in Sources */,
+				BB4E87F72BF46AA400C08965 /* ViewTes.swift in Sources */,
+				BB4E87F52BF4698500C08965 /* DodgeScene.swift in Sources */,
+				BBFC3BBF2BF74C460098147D /* CollisionCategory.swift in Sources */,
+				BB4E880B2BF5FBAB00C08965 /* Conductor.swift in Sources */,
 				BB4E87C82BF4632C00C08965 /* GameViewController.swift in Sources */,
+				BB4E87FD2BF49B0D00C08965 /* AttackBox.swift in Sources */,
 				BB4E87C02BF4632C00C08965 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,13 +500,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 96AS525Q93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,9 +516,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.BlindBeat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -475,13 +533,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 96AS525Q93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -489,9 +549,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.BlindBeat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
