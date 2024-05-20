@@ -18,6 +18,10 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     public var panValue: Float = 0.0
     public var attackPattern: Int = 0
     
+    //attack sound player
+    let attacksound1 = Bundle.main.url(forResource: "Beam-Attack-1", withExtension: "mp3")
+    let attacksound2 = Bundle.main.url(forResource: "Beam-Attack-2", withExtension: "mp3")
+    
     // Collection to store scheduled attack tasks
     private var scheduledAttackTasks: [DispatchWorkItem] = []
     
@@ -42,23 +46,22 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     }
     
     func loadAttackSound(attackPattern: Int) {
-        let soundFileName: String
+        let soundFileName: URL?
         switch attackPattern {
         case 1:
-            soundFileName = "Beam-Attack-1"
+            soundFileName = attacksound1
         case 2:
-            soundFileName = "Beam-Attack-2"
+            soundFileName = attacksound2
         default:
-            soundFileName = "Beam-Attack-1" // Default sound
+            soundFileName = attacksound1 // Default sound
         }
         
-        if let attackSoundURL = Bundle.main.url(forResource: soundFileName, withExtension: "mp3") {
+        if let attackSoundURL = soundFileName {
             do {
                 // Initialize audio player with the sound file
                 attackAudioPlayer = try AVAudioPlayer(contentsOf: attackSoundURL)
                 attackAudioPlayer?.prepareToPlay()
                 attackAudioPlayer?.delegate = self // Set delegate
-                print("Attack sound loaded successfully: \(soundFileName)")
             } catch {
                 print("Error loading attack audio file:", error.localizedDescription)
             }
@@ -114,18 +117,31 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
             (15.03, -1.0, 1, 0.5),
             (17.28, 1.0, 2, 0.7),
             (20.06, -1.0, 2, 0.7),
-            (21.26, 1.0, 1, 0.5),
+//            (21.26, 1.0, 1, 0.5),
             (23.16, -1.0, 2, 0.7)
         ]
         
+        let currentPosition = conductor.songPosition
+        
         for attack in attackTimes {
+            let remainingTime = attack.time - currentPosition
+            
             let attackTask = DispatchWorkItem { [weak self] in
                 print("Executing attack at time \(attack.time)")
                 self?.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
+                // Remove this task from the list after execution
+                self?.scheduledAttackTasks.removeFirst()
             }
-            scheduledAttackTasks.append(attackTask)
-            DispatchQueue.main.asyncAfter(deadline: .now() + attack.time - 0.1, execute: attackTask)
+            
+            if remainingTime > 0 {
+                scheduledAttackTasks.append(attackTask)
+                DispatchQueue.main.asyncAfter(deadline: .now() + remainingTime, execute: attackTask)
+            } else {
+                // Execute immediately if the attack time has already passed
+                attackTask.perform()
+            }
         }
+
     }
     
     

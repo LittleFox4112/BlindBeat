@@ -20,6 +20,21 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var playerHealth: Int = 3
     var playerInvis: Int = 0
     
+    //attack schedule
+    var attackTimes: [(time: TimeInterval, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
+        (3.29, -1.0, 1, 0.5),
+        (6.05, 1.0, 2, 0.7),
+        (8.12, -1.0, 1, 0.5),
+        (12.06, 1.0, 1, 0.5),
+        (15.03, -1.0, 1, 0.5),
+        (17.28, 1.0, 2, 0.7),
+        (20.06, -1.0, 2, 0.7),
+        (21.26, 1.0, 1, 0.5),
+        (23.16, -1.0, 2, 0.7)
+    ]
+    
+    var isAttackScheduled: Bool = false
+    
     //main bg song
     var conductor = Conductor()
     
@@ -44,19 +59,29 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         startGyro()
         
         // Load and play your audio from conductor
-        conductor.playMainMusic()
+        self.conductor.playMainMusic()
         
         DispatchQueue.main.async {
             // Record the current time as the starting time
             self.conductor.offset = CACurrentMediaTime()
             //start attack
-            self.attackBox.scheduleBeamAttacks()
+//            self.attackBox.scheduleBeamAttacks()
         }
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Update the song position on every frame
         conductor.updateSongPosition(currentTime: currentTime)
+        
+        if let attack = attackTimes.first {
+            print (conductor.songPosition)
+            print (attack.time)
+            if conductor.songPosition >= attack.time {
+                attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
+                // Remove this task from the list after execution
+                attackTimes.removeFirst()
+            }
+        }
         
         if playerInvis == 0 {
             playerCollision()

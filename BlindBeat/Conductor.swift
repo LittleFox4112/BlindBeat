@@ -34,8 +34,14 @@ class Conductor {
     
     // Function to update the song position based on time and offset
     func updateSongPosition(currentTime: TimeInterval) {
-        let dspTime = currentTime - offset
-        songPosition = dspTime * 1.0 // Assuming song.pitch is 1.0 for simplicity
+        if offset == 0 {
+            offset = CACurrentMediaTime()
+            let dspTime = currentTime - offset
+            songPosition = dspTime * 1.0 // Assuming song.pitch is 1.0 for simplicity
+        } else {
+            let dspTime = currentTime - offset
+            songPosition = dspTime * 1.0 // Assuming song.pitch is 1.0 for simplicity
+        }
     }
     
     // Function to play the main background music
