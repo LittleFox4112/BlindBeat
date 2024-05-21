@@ -48,6 +48,7 @@ class Conductor {
     
     // Function to stop the main background music
     func stopMainMusic() {
+        print("main music stopped")
         mainAudioPlayer?.stop()
         startTime = nil // Reset the start time when the music stops
     }

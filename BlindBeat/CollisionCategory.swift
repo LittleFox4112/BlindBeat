@@ -10,6 +10,7 @@ import SpriteKit
 
 // angka dalam case harus keliatan 2 pangkat
 enum CollisionCategory: UInt32{
-    case playerTes = 1
-    case attackBox = 2
+    case none = 0
+    case player = 1
+    case attack = 2
 }
