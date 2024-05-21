@@ -20,27 +20,29 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var playerHealth: Int = 3
     var playerInvis: Int = 0
     
-    //attack schedule
-    var attackTimes: [(time: TimeInterval, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
-        (3.29, -1.0, 1, 0.5),
-        (6.05, 1.0, 2, 0.7),
-        (8.12, -1.0, 1, 0.5),
-        (12.06, 1.0, 1, 0.5),
-        (15.03, -1.0, 1, 0.5),
-        (17.28, 1.0, 2, 0.7),
-        (20.06, -1.0, 2, 0.7),
-        (21.26, 1.0, 1, 0.5),
-        (23.16, -1.0, 2, 0.7)
+    // Attack schedule
+    var attackTimes: [(time: Double, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
+        (4.28, -1.0, 1, 0.5),
+        (6.558, 1.0, 2, 0.6),
+        (8.87, -1.0, 1, 0.5),
+        (12.76, 1.0, 1, 0.5),
+        (15.73, -1.0, 1, 0.5),
+        (17.90, -1.0, 2, 0.6),
+        (20.14, 1.0, 2, 0.6),
+        (21.96, -1.0, 1, 0.5),
+        (23.86, -1.0, 2, 0.6)
     ]
     
     var isAttackScheduled: Bool = false
     
-    //main bg song
+    // Main background song
     var conductor = Conductor()
     
     private var timer: Timer?
     
     var currentPlayerPosition: CGPoint? = CGPoint(x: 0, y: -480)
+    var timerLagu: SKLabelNode?
+    var playerLive: SKLabelNode?
     
     override func didMove(to view: SKView) {
         // Gyro data take
@@ -48,7 +50,21 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         
         // Mendapatkan referensi ke node
         playerSprite = childNode(withName: "//playerTes") as? SKSpriteNode
-
+        timerLagu = SKLabelNode(text: "00:00")
+        timerLagu?.fontSize = 60
+        timerLagu?.fontColor = .black
+        timerLagu?.position = CGPoint(x: 0, y: 400)
+        timerLagu?.zPosition = 5
+        if let timerLagu = timerLagu {
+            addChild(timerLagu)
+        }
+        playerLive = SKLabelNode(text: "\(playerHealth)")
+        playerLive?.position = CGPoint(x: 0, y: 500)
+        playerLive?.fontSize = 60
+        playerLive?.fontColor = .black
+        playerLive?.zPosition = 5
+        addChild(playerLive!)
+        
         // Add and setup player node to the scene
         playerSprite?.isHidden = false
         
@@ -60,46 +76,34 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         
         // Load and play your audio from conductor
         self.conductor.playMainMusic()
-        
-        DispatchQueue.main.async {
-            // Record the current time as the starting time
-            self.conductor.offset = CACurrentMediaTime()
-            //start attack
-//            self.attackBox.scheduleBeamAttacks()
-        }
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Update the song position on every frame
-        conductor.updateSongPosition(currentTime: currentTime)
-        
-        if let attack = attackTimes.first {
-            print (conductor.songPosition)
-            print (attack.time)
-            if conductor.songPosition >= attack.time {
-                attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
-                // Remove this task from the list after execution
-                attackTimes.removeFirst()
-            }
+        if playerSprite?.isHidden == false {
+            conductor.updateSongPosition(currentTime: currentTime)
         }
         
-        if playerInvis == 0 {
-            playerCollision()
-        } else if playerInvis > 0 {
-            playerInvis -= 1
-            print("\(playerInvis)")
-        }
+        attackPlayer()
+        playerInvisibility()
         
-        print ("\(playerHealth)")
+//        print ("\(playerHealth)")
         // Use conductor.songPosition as needed in your game logic
         // For example, print the song position
-        let formattedSongPosition = String(format: "%.4f", conductor.songPosition)
-        print("Song Position: \(formattedSongPosition) seconds")
+        let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
+        timerLagu?.text = formattedSongPosition
+        playerLive?.text = "\(playerHealth)"
     }
+    
+    //mappingbeat di xcode
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            // Print the current song position when the screen is tapped
+            let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
+            print("Current Song Position: \(formattedSongPosition) seconds")
+        }
     
     func playerCollision() {
         if attackBox.attackBox?.isHidden == false {
-            if currentPlayerPosition!.x < 0 && attackBox.panValue == -1 || currentPlayerPosition!.x > 0 && attackBox.panValue == 1{
+            if currentPlayerPosition!.x < 0 && attackBox.panValue == -1 || currentPlayerPosition!.x > 0 && attackBox.panValue == 1 {
                 print ("collision detected")
                 playerHealth -= 1
                 playerInvis = 60
@@ -111,11 +115,20 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func playerInvisibility() {
+        if playerInvis == 0 {
+            playerCollision()
+        } else if playerInvis > 0 {
+            playerInvis -= 1
+            print("\(playerInvis)")
+        }
+    }
+    
     func startGyro() {
         if manager.isAccelerometerAvailable {
             self.manager.accelerometerUpdateInterval = 1.0/50
             self.manager.startAccelerometerUpdates()
-
+            
             // Configure a timer to fetch the accelerometer data.
             self.timer = Timer(fire: Date(), interval: (1.0 / 50.0), repeats: true) { [weak self] timer in
                 // Get the gyro data.
@@ -126,7 +139,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
                     self?.updatePlayerPosition(accelerationX: CGFloat(-x))
                 }
             }
-
+            
             // Add the timer to the current run loop.
             RunLoop.current.add(self.timer!, forMode: .default)
         }
@@ -141,9 +154,23 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         manager.stopAccelerometerUpdates()
     }
     
+    func attackPlayer() {
+        if playerHealth > 0 {
+            if let attack = attackTimes.first {
+                if conductor.songPosition+0.6 >= attack.time {
+                    print (conductor.songPosition)
+                    print (attack.time)
+                    attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
+                    // Remove this task from the list after execution
+                    attackTimes.removeFirst()
+                }
+            }
+        }
+    }
+    
     func updatePlayerPosition(accelerationX: CGFloat) {
         // Adjust sensitivity
-        let sensitivity: CGFloat = 500.0
+        let sensitivity: CGFloat = 300.0
         
         // Calculate new position
         let newPositionX = playerSprite!.position.x + accelerationX * sensitivity
@@ -156,7 +183,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         currentPlayerPosition = playerSprite!.position
     }
     
-    //limitasi gerakan player agar tidak keluar dari screen
+    // Limit player movement to stay within the screen bounds
     func clamp(value: CGFloat, lower: CGFloat, upper: CGFloat) -> CGFloat {
         return min(max(value, lower), upper)
     }

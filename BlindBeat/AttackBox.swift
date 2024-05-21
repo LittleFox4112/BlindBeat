@@ -80,6 +80,7 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         // Store the pan value and attack pattern
         panValue = pan
         self.attackPattern = attackPattern
+        conductor.setMainMusicVolume(volume: 0.2)
         
         // Load the appropriate attack sound
         loadAttackSound(attackPattern: attackPattern)
@@ -106,43 +107,43 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: showAttackBoxTask)
     }
     
-    func scheduleBeamAttacks() {
-        print("beam attack scheduled")
-        // Array of (time, pan, attackPattern, delay) tuples
-        let attackTimes: [(time: TimeInterval, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
-            (3.29, -1.0, 1, 0.5),
-            (6.05, 1.0, 2, 0.7),
-            (8.12, -1.0, 1, 0.5),
-            (12.06, 1.0, 1, 0.5),
-            (15.03, -1.0, 1, 0.5),
-            (17.28, 1.0, 2, 0.7),
-            (20.06, -1.0, 2, 0.7),
-//            (21.26, 1.0, 1, 0.5),
-            (23.16, -1.0, 2, 0.7)
-        ]
-        
-        let currentPosition = conductor.songPosition
-        
-        for attack in attackTimes {
-            let remainingTime = attack.time - currentPosition
-            
-            let attackTask = DispatchWorkItem { [weak self] in
-                print("Executing attack at time \(attack.time)")
-                self?.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
-                // Remove this task from the list after execution
-                self?.scheduledAttackTasks.removeFirst()
-            }
-            
-            if remainingTime > 0 {
-                scheduledAttackTasks.append(attackTask)
-                DispatchQueue.main.asyncAfter(deadline: .now() + remainingTime, execute: attackTask)
-            } else {
-                // Execute immediately if the attack time has already passed
-                attackTask.perform()
-            }
-        }
-
-    }
+//    func scheduleBeamAttacks() {
+//        print("beam attack scheduled")
+//        // Array of (time, pan, attackPattern, delay) tuples
+//        let attackTimes: [(time: Double, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
+//            (4.28, -1.0, 1, 0.5),
+//            (6.565, 1.0, 2, 0.6),
+//    //        (8.12, -1.0, 1, 0.5),
+//    //        (12.06, 1.0, 1, 0.5),
+//    //        (15.03, -1.0, 1, 0.5),
+//    //        (17.28, 1.0, 2, 0.6),
+//            (17.90, -1.0, 2, 0.6),
+//            (20.14, 1.0, 2, 0.6),
+//    //        (23.16, -1.0, 2, 0.6)
+//        ]
+//        
+//        let currentPosition = conductor.songPosition
+//        
+//        for attack in attackTimes {
+//            let remainingTime = attack.time - currentPosition
+//            
+//            let attackTask = DispatchWorkItem { [weak self] in
+//                print("Executing attack at time \(attack.time)")
+//                self?.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
+//                // Remove this task from the list after execution
+//                self?.scheduledAttackTasks.removeFirst()
+//            }
+//            
+//            if remainingTime > 0 {
+//                scheduledAttackTasks.append(attackTask)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + remainingTime, execute: attackTask)
+//            } else {
+//                // Execute immediately if the attack time has already passed
+//                attackTask.perform()
+//            }
+//        }
+//
+//    }
     
     
     func attackStop() {

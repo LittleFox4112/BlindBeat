@@ -29,6 +29,7 @@
 		BBFC3BC12BF891800098147D /* HeatleyBros-8BitHero.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */; };
 		BBFC3BC32BF8922A0098147D /* Beam-Attack-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */; };
 		BBFC3BC52BF892300098147D /* Beam-Attack-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC42BF892300098147D /* Beam-Attack-2.mp3 */; };
+		BBFC3BC72BFC6E7B0098147D /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFC3BC62BFC6E7B0098147D /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "HeatleyBros-8BitHero.mp3"; path = "../../../BlindBeat sounds/HeatleyBros-8BitHero.mp3"; sourceTree = "<group>"; };
 		BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-1.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-1.mp3"; sourceTree = "<group>"; };
 		BBFC3BC42BF892300098147D /* Beam-Attack-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-2.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-2.mp3"; sourceTree = "<group>"; };
+		BBFC3BC62BFC6E7B0098147D /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				BB4E87C32BF4632C00C08965 /* Actions.sks */,
 				BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */,
 				BB4E880A2BF5FBAB00C08965 /* Conductor.swift */,
+				BBFC3BC62BFC6E7B0098147D /* Player.swift */,
 				BB4E87FC2BF49B0D00C08965 /* AttackBox.swift */,
 				BB4E87F42BF4698500C08965 /* DodgeScene.swift */,
 				BB4E87C72BF4632C00C08965 /* GameViewController.swift */,
@@ -316,6 +319,7 @@
 				BB4E87F52BF4698500C08965 /* DodgeScene.swift in Sources */,
 				BBFC3BBF2BF74C460098147D /* CollisionCategory.swift in Sources */,
 				BB4E880B2BF5FBAB00C08965 /* Conductor.swift in Sources */,
+				BBFC3BC72BFC6E7B0098147D /* Player.swift in Sources */,
 				BB4E87C82BF4632C00C08965 /* GameViewController.swift in Sources */,
 				BB4E87FD2BF49B0D00C08965 /* AttackBox.swift in Sources */,
 				BB4E87C02BF4632C00C08965 /* AppDelegate.swift in Sources */,

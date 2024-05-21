@@ -11,12 +11,8 @@ import AVFoundation
 class Conductor {
     var mainAudioPlayer: AVAudioPlayer?
     
-    var bpm: Double = 120 // Beats per minute
-    var crotchet: Double {
-        return 60 / bpm // Time duration of a beat in seconds
-    }
-    
     var offset: Double = 0 // Offset for the audio playback
+    private var startTime: TimeInterval? // Time when the main music started playing
     public var songPosition: TimeInterval = 0 // Current position of the song
     
     init() {
@@ -32,15 +28,13 @@ class Conductor {
         }
     }
     
-    // Function to update the song position based on time and offset
+    // Function to update the song position based on the elapsed time since the start time
     func updateSongPosition(currentTime: TimeInterval) {
-        if offset == 0 {
-            offset = CACurrentMediaTime()
-            let dspTime = currentTime - offset
-            songPosition = dspTime * 1.0 // Assuming song.pitch is 1.0 for simplicity
+        if let startTime = startTime {
+            let elapsedTime = currentTime - startTime
+            songPosition = elapsedTime
         } else {
-            let dspTime = currentTime - offset
-            songPosition = dspTime * 1.0 // Assuming song.pitch is 1.0 for simplicity
+            songPosition = 0
         }
     }
     
@@ -48,17 +42,18 @@ class Conductor {
     func playMainMusic() {
         print("main music start")
         mainAudioPlayer?.play()
-        setMainMusicVolume(volume: 0.4)
+        setMainMusicVolume(volume: 0.3)
+        startTime = CACurrentMediaTime() // Record the start time when the music begins to play
     }
     
     // Function to stop the main background music
     func stopMainMusic() {
         mainAudioPlayer?.stop()
+        startTime = nil // Reset the start time when the music stops
     }
     
     // Function to set the volume of the main background music
     func setMainMusicVolume(volume: Float) {
         mainAudioPlayer?.volume = volume
     }
-    
 }
