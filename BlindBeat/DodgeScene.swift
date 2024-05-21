@@ -28,7 +28,8 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         (17.90, -1.0, 2, 0.6),
         (20.14, 1.0, 2, 0.6),
         (21.96, -1.0, 1, 0.5),
-        (23.86, -1.0, 2, 0.6)
+        (23.86, -1.0, 2, 0.6),
+        
     ]
     
     var isAttackScheduled: Bool = false
