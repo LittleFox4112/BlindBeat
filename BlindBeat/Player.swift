@@ -12,13 +12,13 @@ import AVFoundation
 class PlayerSprite: NSObject {
     var playerSprite: SKSpriteNode?
     var hitAudioPlayer: AVAudioPlayer?
-
+    var conductor = Conductor()
+    
     var playerHealth: Int = 3
     var playerInvis: Int = 0
     var currentPlayerPosition: CGPoint? = CGPoint(x: 0, y: -400)
     
-    let hitsound1 = Bundle.main.url(forResource: "Beam-Attack-1", withExtension: "mp3")
-    let hitsound2 = Bundle.main.url(forResource: "Beam-Attack-1", withExtension: "mp3")
+    let hitsound1 = Bundle.main.url(forResource: "Hit-sound", withExtension: "mp3")
     
     init(scene: SKScene) {
         super.init()
@@ -37,18 +37,8 @@ class PlayerSprite: NSObject {
         }
     }
     
-    func loadHitSound(attackPattern: Int) {
-        let soundFileName: URL?
-        switch attackPattern {
-        case 1:
-            soundFileName = hitsound1
-        case 2:
-            soundFileName = hitsound2
-        default:
-            soundFileName = hitsound1
-        }
-        
-        if let hitSoundURL = soundFileName {
+    func loadHitSound() {
+        if let hitSoundURL = hitsound1 {
             do {
                 // Initialize audio player with the sound file
                 hitAudioPlayer = try AVAudioPlayer(contentsOf: hitSoundURL)
@@ -59,14 +49,24 @@ class PlayerSprite: NSObject {
         }
     }
     
+    func playHitAudio(){
+        hitAudioPlayer?.play()
+        conductor.setMainMusicVolume(volume: 0.1)
+        if playerInvis == 0 {
+            conductor.setMainMusicVolume(volume: 0.3)
+        }
+    }
+    
     func playerShow() {
         playerSprite?.isHidden = false
         playerInvis = 0
         playerHealth = 3
+        loadHitSound()
     }
     
     func playerCollision() {
         playerHealth -= 1
+        playHitAudio()
         if playerHealth > 0 {
             print("collision func detected")
             playerInvis = 60
@@ -83,7 +83,7 @@ class PlayerSprite: NSObject {
     
     func updatePlayerPosition(accelerationX: CGFloat, accelerationY: CGFloat) {
         // Adjust sensitivity
-        let sensitivity: CGFloat = 200.0
+        let sensitivity: CGFloat = 250.0
         
         // Calculate new position
         let newPositionX = playerSprite!.position.x + accelerationX * sensitivity
@@ -96,6 +96,14 @@ class PlayerSprite: NSObject {
         // Update player position
         playerSprite!.position = CGPoint(x: clampedPositionX, y: clampedPositionY)
         currentPlayerPosition = playerSprite!.position
+    }
+    
+    func hitPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if player == hitAudioPlayer {
+            DispatchQueue.main.async {
+                
+            }
+        }
     }
     
     // Limit player movement to stay within the screen bounds

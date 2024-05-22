@@ -22,8 +22,8 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var attackTimes: [(time: Double, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
         (4.28, -1.0, 1, 0.5),
         (6.558, 1.0, 2, 0.6),
-        (8.87, 0, 3, 0.5),
-        (12.76, 0, 4, 0.5),
+        (8.87, -1, 1, 0.5),
+        (12.76, 1, 2, 0.5),
         (15.73, -1.0, 1, 0.5),
         (17.90, -1.0, 2, 0.6),
         (20.14, 1.0, 2, 0.6),
