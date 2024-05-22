@@ -61,12 +61,13 @@ class PlayerSprite: NSObject {
     
     func playerShow() {
         playerSprite?.isHidden = false
+        playerInvis = 0
+        playerHealth = 3
     }
     
     func playerCollision() {
         playerHealth -= 1
         if playerHealth > 0 {
-            
             print("collision func detected")
             playerInvis = 60
             print (playerHealth)

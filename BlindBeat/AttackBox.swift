@@ -74,14 +74,10 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     }
     
     func adjustAttackCategoryBitMask() {
-        if attackBox!.isHidden == true || attackUpDown!.isHidden == true {
-            attackBox?.physicsBody?.categoryBitMask = CollisionCategory.none.rawValue
-            attackUpDown?.physicsBody?.categoryBitMask = CollisionCategory.none.rawValue
-        } else {
-            attackBox?.physicsBody?.categoryBitMask = CollisionCategory.attack.rawValue
-            attackUpDown?.physicsBody?.categoryBitMask = CollisionCategory.attack.rawValue
-        }
+        attackBox?.physicsBody?.categoryBitMask = attackBox!.isHidden ? CollisionCategory.none.rawValue : CollisionCategory.attack.rawValue
+        attackUpDown?.physicsBody?.categoryBitMask = attackUpDown!.isHidden ? CollisionCategory.none.rawValue : CollisionCategory.attack.rawValue
     }
+
     
     func loadAttackSound(attackPattern: Int) {
         let soundFileName: URL?
@@ -143,8 +139,6 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         
         // Schedule the attackBox to be shown after the specified delay
         let showAttackBoxTask = DispatchWorkItem {
-            self.adjustAttackCategoryBitMask()
-
             if pan == -1 {
                 self.attackBox?.position.x = -609.5
                 self.attackBox?.isHidden = false
@@ -157,7 +151,9 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
                 self.showUpDownAttack()
                 self.attackUpDown?.isHidden = false
             }
-            // Check if attackBox is shown
+            
+            self.adjustAttackCategoryBitMask()
+            
             if self.attackBox?.isHidden == false {
                 print("attackBox shown")
             }else  if self.attackUpDown?.isHidden == false {
