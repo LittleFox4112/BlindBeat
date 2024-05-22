@@ -22,17 +22,20 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var attackTimes: [(time: Double, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
         (4.28, -1.0, 1, 0.5),
         (6.558, 1.0, 2, 0.6),
-        (8.87, -1.0, 1, 0.5),
-        (12.76, 1.0, 1, 0.5),
+        (8.87, 0, 3, 0.5),
+        (12.76, 0, 4, 0.5),
         (15.73, -1.0, 1, 0.5),
         (17.90, -1.0, 2, 0.6),
         (20.14, 1.0, 2, 0.6),
         (21.96, -1.0, 1, 0.5),
-        (23.86, -1.0, 2, 0.6),
-        
+        (23.86, -1.0, 2, 0.6)
     ]
     
     var isAttackScheduled: Bool = false
+    // Calibration data
+    var initialX: Double = 0.0
+    var initialY: Double = 0.0
+    var isCalibrated: Bool = false
     
     private var timer: Timer?
     
@@ -40,6 +43,8 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var playerLive: SKLabelNode?
     
     override func didMove(to view: SKView) {
+        view.showsPhysics = true
+        
         // Initialize class with the scene reference
         playerSprite = PlayerSprite(scene: self)
         attackBox = AttackBox(scene: self)
@@ -47,16 +52,16 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         // Set up the scene
         self.physicsWorld.contactDelegate = self
         
-        // Gyro data take
-        manager.startAccelerometerUpdates()
-        
         // Add and setup player node to the scene
         playerSprite.playerShow()
+        
+        // Gyro data take
+        manager.startAccelerometerUpdates()
         
         // Start gyro updates
         startGyro()
         
-        // Cek timer dan playerhealth
+        // Check timer and player health
         timerLagu = SKLabelNode(text: "00:00")
         timerLagu?.fontSize = 60
         timerLagu?.fontColor = .black
@@ -91,19 +96,18 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         playerLive?.text = "\(playerSprite.playerHealth)"
     }
     
-    //mappingbeat di xcode
+    // Mapping beat in Xcode
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Print the current song position when the screen is tapped
         let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
         print("Current Song Position: \(formattedSongPosition) seconds")
     }
     
-    // Contact delegate method --> cek collision dan kirim info
+    // Contact delegate method --> check collision and send info
     func didBegin(_ contact: SKPhysicsContact) {
-        if attackBox.attackBox?.isHidden == false && playerSprite.playerHealth > 0 {
-            let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-            
-            if contactMask == (CollisionCategory.player.rawValue | CollisionCategory.attack.rawValue) {
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        if contactMask == (CollisionCategory.player.rawValue | CollisionCategory.attack.rawValue) {
+            if playerSprite.playerHealth > 0 && playerSprite.playerInvis == 0 {
                 playerSprite.playerCollision()
             }
         }
@@ -111,7 +115,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     
     func startGyro() {
         if manager.isAccelerometerAvailable {
-            self.manager.accelerometerUpdateInterval = 1.0/50
+            self.manager.accelerometerUpdateInterval = 1.0 / 50
             self.manager.startAccelerometerUpdates()
             
             // Configure a timer to fetch the accelerometer data.
@@ -119,9 +123,21 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
                 // Get the gyro data.
                 if let data = self?.manager.accelerometerData {
                     let x = data.acceleration.y
+                    let y = data.acceleration.x
                     
-                    // Use the gyroscope data in your app.
-                    self!.playerSprite.updatePlayerPosition(accelerationX: CGFloat(-x))
+                    // Calibration step
+                    if !(self?.isCalibrated ?? true) {
+                        self?.initialX = x
+                        self?.initialY = y
+                        self?.isCalibrated = true
+                    }
+                    
+                    // Adjust based on calibration
+                    let adjustedX = x - (self?.initialX ?? 0.0)
+                    let adjustedY = y - (self?.initialY ?? 0.0)
+                    
+                    // Use the adjusted gyro data in your app.
+                    self?.playerSprite.updatePlayerPosition(accelerationX: CGFloat(-adjustedX), accelerationY: CGFloat(adjustedY))
                 }
             }
             
@@ -142,9 +158,9 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     func attackPlayer() {
         if playerSprite.playerHealth > 0 {
             if let attack = attackTimes.first {
-                if conductor.songPosition+0.6 >= attack.time {
-                    print (conductor.songPosition)
-                    print (attack.time)
+                if conductor.songPosition + 0.6 >= attack.time {
+                    print(conductor.songPosition)
+                    print(attack.time)
                     attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
                     // Remove this task from the list after execution
                     attackTimes.removeFirst()
