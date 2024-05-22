@@ -26,6 +26,8 @@
 		BB4E880B2BF5FBAB00C08965 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E880A2BF5FBAB00C08965 /* Conductor.swift */; };
 		BB4E880F2BF6051B00C08965 /* MainMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4E880E2BF6051B00C08965 /* MainMusic.mp3 */; };
 		BBEAE10D2BFE276300572CA8 /* Hit-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE10C2BFE276300572CA8 /* Hit-sound.mp3 */; };
+		BBEAE1182BFE398B00572CA8 /* Beam-Attack-Atas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE1162BFE398B00572CA8 /* Beam-Attack-Atas.mp3 */; };
+		BBEAE1192BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE1172BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 */; };
 		BBFC3BBF2BF74C460098147D /* CollisionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */; };
 		BBFC3BC12BF891800098147D /* HeatleyBros-8BitHero.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */; };
 		BBFC3BC32BF8922A0098147D /* Beam-Attack-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */; };
@@ -73,6 +75,8 @@
 		BB4E880A2BF5FBAB00C08965 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		BB4E880E2BF6051B00C08965 /* MainMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = MainMusic.mp3; path = "../../../BlindBeat sounds/MainMusic.mp3"; sourceTree = "<group>"; };
 		BBEAE10C2BFE276300572CA8 /* Hit-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Hit-sound.mp3"; path = "../../../BlindBeat sounds/Hit-sound.mp3"; sourceTree = "<group>"; };
+		BBEAE1162BFE398B00572CA8 /* Beam-Attack-Atas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-Atas.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-Atas.mp3"; sourceTree = "<group>"; };
+		BBEAE1172BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-Bawah.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-Bawah.mp3"; sourceTree = "<group>"; };
 		BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionCategory.swift; sourceTree = "<group>"; };
 		BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "HeatleyBros-8BitHero.mp3"; path = "../../../BlindBeat sounds/HeatleyBros-8BitHero.mp3"; sourceTree = "<group>"; };
 		BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-1.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-1.mp3"; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				BB4E880E2BF6051B00C08965 /* MainMusic.mp3 */,
 				BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */,
 				BBEAE10C2BFE276300572CA8 /* Hit-sound.mp3 */,
+				BBEAE1162BFE398B00572CA8 /* Beam-Attack-Atas.mp3 */,
+				BBEAE1172BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 */,
 				BBFC3BC22BF8922A0098147D /* Beam-Attack-1.mp3 */,
 				BBFC3BC42BF892300098147D /* Beam-Attack-2.mp3 */,
 				BB4E88082BF4C30500C08965 /* AttackSound.wav */,
@@ -282,10 +288,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBEAE1192BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 in Resources */,
 				BB4E87CB2BF4632C00C08965 /* Base in Resources */,
 				BB4E87CD2BF4632D00C08965 /* Assets.xcassets in Resources */,
 				BBFC3BC32BF8922A0098147D /* Beam-Attack-1.mp3 in Resources */,
 				BB4E880F2BF6051B00C08965 /* MainMusic.mp3 in Resources */,
+				BBEAE1182BFE398B00572CA8 /* Beam-Attack-Atas.mp3 in Resources */,
 				BBEAE10D2BFE276300572CA8 /* Hit-sound.mp3 in Resources */,
 				BBFC3BC52BF892300098147D /* Beam-Attack-2.mp3 in Resources */,
 				BB4E88032BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 in Resources */,

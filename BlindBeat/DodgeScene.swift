@@ -22,13 +22,20 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var attackTimes: [(time: Double, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
         (4.28, -1.0, 1, 0.5),
         (6.558, 1.0, 2, 0.6),
-        (8.87, -1, 1, 0.5),
-        (12.76, 1, 2, 0.5),
+        (8.87, -1.0, 1, 0.5),
+        (12.76, 1.0, 1, 0.5),
         (15.73, -1.0, 1, 0.5),
-        (17.90, -1.0, 2, 0.6),
+        (17.90, 0, 3, 0.5),
         (20.14, 1.0, 2, 0.6),
         (21.96, -1.0, 1, 0.5),
-        (23.86, -1.0, 2, 0.6)
+        (23.86, 0, 4, 0.5),
+        (25.89, 1.0, 1, 0.5),
+        (29.75, -1.0, 2, 0.6),
+        (31.99, 1.0, 1, 0.5),
+        (33.91, -1.0, 2, 0.6),
+        (35.97, 1.0, 2, 0.6),
+        (38.74, 0, 4, 0.5),
+        (40.82, 0, 3, 0.5)
     ]
     
     var isAttackScheduled: Bool = false
@@ -79,6 +86,23 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         
         // Load and play your audio from conductor
         self.conductor.playMainMusic()
+    }
+    
+    func attackPlayer() {
+        if playerSprite.playerHealth > 0 {
+            if let attack = attackTimes.first {
+                if conductor.songPosition + 0.6 >= attack.time {
+                    print(conductor.songPosition)
+                    print(attack.time)
+                    attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
+                    // Remove this task from the list after execution
+                    attackTimes.removeFirst()
+                }
+            }
+        } else if playerSprite.playerHealth == 0 {
+            playerSprite.playerHealth = -1
+            conductor.stopMainMusic()
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -155,22 +179,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         manager.stopAccelerometerUpdates()
     }
     
-    func attackPlayer() {
-        if playerSprite.playerHealth > 0 {
-            if let attack = attackTimes.first {
-                if conductor.songPosition + 0.6 >= attack.time {
-                    print(conductor.songPosition)
-                    print(attack.time)
-                    attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
-                    // Remove this task from the list after execution
-                    attackTimes.removeFirst()
-                }
-            }
-        } else if playerSprite.playerHealth == 0 {
-            playerSprite.playerHealth = -1
-            conductor.stopMainMusic()
-        }
-    }
     
     override func willMove(from view: SKView) {
         // Ensure to stop gyro updates when the scene is removed from the view

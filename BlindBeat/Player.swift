@@ -69,7 +69,7 @@ class PlayerSprite: NSObject {
         playHitAudio()
         if playerHealth > 0 {
             print("collision func detected")
-            playerInvis = 60
+            playerInvis = 100
             print (playerHealth)
         }
     }
@@ -83,11 +83,12 @@ class PlayerSprite: NSObject {
     
     func updatePlayerPosition(accelerationX: CGFloat, accelerationY: CGFloat) {
         // Adjust sensitivity
-        let sensitivity: CGFloat = 250.0
+        let xsensitivity: CGFloat = 400.0
+        let ysensitivity: CGFloat = 250.0
         
         // Calculate new position
-        let newPositionX = playerSprite!.position.x + accelerationX * sensitivity
-        let newPositionY = playerSprite!.position.y + accelerationY * sensitivity
+        let newPositionX = playerSprite!.position.x + accelerationX * xsensitivity
+        let newPositionY = playerSprite!.position.y + accelerationY * ysensitivity
         
         // Ensure player stays within screen bounds
         let clampedPositionX = clamp(value: newPositionX, lower: -900, upper: 900)

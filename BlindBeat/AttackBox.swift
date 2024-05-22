@@ -21,8 +21,8 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     // Attack sound player
     let attacksound1 = Bundle.main.url(forResource: "Beam-Attack-1", withExtension: "mp3")
     let attacksound2 = Bundle.main.url(forResource: "Beam-Attack-2", withExtension: "mp3")
-    let attacksound3 = Bundle.main.url(forResource: "Beam-Attack-up", withExtension: "mp3")
-    let attacksound4 = Bundle.main.url(forResource: "Beam-Attack-down", withExtension: "mp3")
+    let attacksound3 = Bundle.main.url(forResource: "Beam-Attack-Atas", withExtension: "mp3")
+    let attacksound4 = Bundle.main.url(forResource: "Beam-Attack-Bawah", withExtension: "mp3")
     
     // Collection to store scheduled attack tasks
     private var scheduledAttackTasks: [DispatchWorkItem] = []
