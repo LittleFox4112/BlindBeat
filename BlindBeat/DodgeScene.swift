@@ -17,25 +17,88 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var playerSprite: PlayerSprite!
     var attackBox: AttackBox!
     var conductor = Conductor()
+    var containerPlayer:SKSpriteNode?
+    var background = SKSpriteNode(imageNamed: "background")
     
     // Attack schedule
-    var attackTimes: [(time: Double, pan: Float, attackPattern: Int, delay: TimeInterval)] = [
-        (4.28, -1.0, 1, 0.5),
-        (6.558, 1.0, 2, 0.6),
-        (8.87, -1.0, 1, 0.5),
-        (12.76, 1.0, 1, 0.5),
-        (15.73, -1.0, 1, 0.5),
-        (17.90, 0, 3, 0.5),
-        (20.14, 1.0, 2, 0.6),
-        (21.96, -1.0, 1, 0.5),
-        (23.86, 0, 4, 0.5),
-        (25.89, 1.0, 1, 0.5),
-        (29.75, -1.0, 2, 0.6),
-        (31.99, 1.0, 1, 0.5),
-        (33.91, -1.0, 2, 0.6),
-        (35.97, 1.0, 2, 0.6),
-        (38.74, 0, 4, 0.5),
-        (40.82, 0, 3, 0.5)
+    var attackTimes: [(time: Double, pan: Float, attackPattern: Int)] = [
+        (4.28, -1.0, 1),
+        (6.558, 1.0, 2),
+        (8.87, -1.0, 1),
+        (17.90, 0, 3),
+        (20.14, 1.0, 2),
+        (21.96, -1.0, 1),
+        (23.86, 0, 4),
+        (25.89, 1.0, 1),
+        (29.75, -1.0, 2),
+        (31.99, 1.0, 1),
+        (33.91, -1.0, 2),
+        (35.97, 1.0, 2),
+        (38.74, 0, 4),
+        (40.80, 0, 3),
+        (44.95, 1.0, 2),
+        (47.70,-1.0, 2),
+        (48.71, 0, 4),
+        (50.81, -1.0, 2),
+        (51.86, 1.0, 1),
+        (52.90, -1.0, 1),
+        (53.93, 0, 3),
+        (55.82, 0, 3),
+        (57.72, 0, 4),
+        (58.80, 1, 2),
+        (60.84, -1, 2),
+        (61.87, 1, 1),
+        (63.81, 0, 3),
+        (64.97, 1, 2),
+        (67.77, -1, 2),
+        (68.87, 1, 1),
+        (69.84, 1, 1),
+        (71.91, -1, 2),
+        (72.96, 0, 4),
+        (74.95, 0, 3),
+        (75.82, 1, 1),
+        (76.93, -1, 2),
+        (78.99, 0, 3),
+        (80.90, 0, 4),
+        (82.97, 1, 1),
+        (84.72, -1, 2),
+        (85.77, -1, 2),
+        (86.77, 1, 2),
+        (87.82, 0, 4),
+        (89.73, -1, 2),
+        (91.94, -1, 1),
+        (93.70, 0, 3),
+        (94.78, 1, 2),
+        (95.94, 0, 3),
+        (98.84, 0, 4),
+        (100.79, 1, 2),
+        (101.91, -1, 2),
+        (103.74, 0, 4),
+        (105.79, -1, 2),
+        (106.81, 1, 2),
+        (107.75, 0, 3),
+        (114.80, 0, 3),
+        (116.70, 0, 4),
+        (117.83, -1, 2),
+        (118.94, -1, 1),
+        (119.97, 1, 2),
+        (121.71, 0, 3),
+        (123.77, 0, 3),
+        (125.89, -1, 1),
+        (127.78, 1, 2),
+        (128.76, -1, 2),
+        (129.98, -1, 1),
+        (131.74, 1, 2),
+        (132.76, -1, 1),
+        (133.97, -1, 1),
+        (135.88, 0, 4),
+        (136.92, 0, 3)
+    ]
+    
+    var enemyAudioTimes: [(time: Double, speechPattern: Int)] = [
+        (12.76, 1),
+        (42.90, 2),
+        (109.92, 3)
     ]
     
     var isAttackScheduled: Bool = false
@@ -52,15 +115,23 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         view.showsPhysics = true
         
+        background.zPosition = 0
+        background.position = CGPoint(x: 0, y: 0)
+        background.size = CGSize (width: 2400, height: 2000)
+
+        addChild(background)
+        
         // Initialize class with the scene reference
         playerSprite = PlayerSprite(scene: self)
         attackBox = AttackBox(scene: self)
+        containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
         
         // Set up the scene
         self.physicsWorld.contactDelegate = self
         
         // Add and setup player node to the scene
         playerSprite.playerShow()
+        containerPlayer?.isHidden = false
         
         // Gyro data take
         manager.startAccelerometerUpdates()
@@ -88,13 +159,25 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         self.conductor.playMainMusic()
     }
     
+    func enemySpeech(){
+        if playerSprite.playerHealth > 0 {
+            if let speech = enemyAudioTimes.first {
+                if conductor.songPosition + 0.7 >= speech.time {
+                    playerSprite.playEnemyAudio(speechPattern: speech.speechPattern)
+                    // Remove this task from the list after execution
+                    enemyAudioTimes.removeFirst()
+                }
+            }
+        }
+    }
+        
     func attackPlayer() {
         if playerSprite.playerHealth > 0 {
             if let attack = attackTimes.first {
                 if conductor.songPosition + 0.6 >= attack.time {
                     print(conductor.songPosition)
                     print(attack.time)
-                    attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern, delay: attack.delay)
+                    attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern)
                     // Remove this task from the list after execution
                     attackTimes.removeFirst()
                 }
@@ -109,7 +192,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         if playerSprite.playerSprite?.isHidden == false {
             conductor.updateSongPosition(currentTime: currentTime)
         }
-        
+        enemySpeech()
         attackPlayer()
         if playerSprite.playerInvis > 0 {
             playerSprite.playerInvisibility()
@@ -148,20 +231,8 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
                 if let data = self?.manager.accelerometerData {
                     let x = data.acceleration.y
                     let y = data.acceleration.x
-                    
-                    // Calibration step
-                    if !(self?.isCalibrated ?? true) {
-                        self?.initialX = x
-                        self?.initialY = y
-                        self?.isCalibrated = true
-                    }
-                    
-                    // Adjust based on calibration
-                    let adjustedX = x - (self?.initialX ?? 0.0)
-                    let adjustedY = y - (self?.initialY ?? 0.0)
-                    
-                    // Use the adjusted gyro data in your app.
-                    self?.playerSprite.updatePlayerPosition(accelerationX: CGFloat(-adjustedX), accelerationY: CGFloat(adjustedY))
+
+                    self?.playerSprite.updatePlayerPosition(accelerationX: CGFloat(-x), accelerationY: CGFloat(y))
                 }
             }
             

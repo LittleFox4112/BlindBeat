@@ -12,13 +12,19 @@ import AVFoundation
 class PlayerSprite: NSObject {
     var playerSprite: SKSpriteNode?
     var hitAudioPlayer: AVAudioPlayer?
+    var enemyAudioPlayer: AVAudioPlayer?
     var conductor = Conductor()
+    public var speechPattern : Int = 0
+    var enemyAudioPlaying: Bool = false
     
     var playerHealth: Int = 3
     var playerInvis: Int = 0
     var currentPlayerPosition: CGPoint? = CGPoint(x: 0, y: -400)
     
     let hitsound1 = Bundle.main.url(forResource: "Hit-sound", withExtension: "mp3")
+    let enemysound1 = Bundle.main.url(forResource: "Audio-musuh-1", withExtension: "mp3")
+    let enemysound2 = Bundle.main.url(forResource: "Audio-musuh-2", withExtension: "mp3")
+    let enemysound3 = Bundle.main.url(forResource: "Audio-musuh-3", withExtension: "mp3")
     
     init(scene: SKScene) {
         super.init()
@@ -49,6 +55,43 @@ class PlayerSprite: NSObject {
         }
     }
     
+    func loadEnemySound(speechPattern: Int){
+        let soundFileName: URL?
+        switch speechPattern {
+        case 1:
+            soundFileName = enemysound1
+        case 2:
+            soundFileName = enemysound2
+        case 3:
+            soundFileName = enemysound3
+        default:
+            soundFileName = enemysound1 // Default sound
+        }
+        if let enemySoundURL = soundFileName {
+            do {
+                // Initialize audio player with the sound file
+                enemyAudioPlayer = try AVAudioPlayer(contentsOf: enemySoundURL)
+                enemyAudioPlayer?.prepareToPlay()
+            } catch {
+                print("Error loading attack audio file:", error.localizedDescription)
+            }
+        }
+    }
+    
+    func playEnemyAudio(speechPattern: Int){
+        self.speechPattern = speechPattern
+        loadEnemySound(speechPattern: speechPattern)
+        enemyAudioPlaying = true
+        if enemyAudioPlaying == true {
+            conductor.setMainMusicVolume(volume: 0.1)
+            enemyAudioPlaying = false
+            // delegate untuk set main music volume ke 0.3 stelah audio kelar
+        } else {
+            conductor.setMainMusicVolume(volume: 0.3)
+        }
+        self.enemyAudioPlayer?.play()
+    }
+    
     func playHitAudio(){
         hitAudioPlayer?.play()
         conductor.setMainMusicVolume(volume: 0.1)
@@ -60,7 +103,7 @@ class PlayerSprite: NSObject {
     func playerShow() {
         playerSprite?.isHidden = false
         playerInvis = 0
-        playerHealth = 3
+        playerHealth = 5
         loadHitSound()
     }
     
@@ -70,7 +113,6 @@ class PlayerSprite: NSObject {
         if playerHealth > 0 {
             print("collision func detected")
             playerInvis = 100
-            print (playerHealth)
         }
     }
     
@@ -83,7 +125,7 @@ class PlayerSprite: NSObject {
     
     func updatePlayerPosition(accelerationX: CGFloat, accelerationY: CGFloat) {
         // Adjust sensitivity
-        let xsensitivity: CGFloat = 400.0
+        let xsensitivity: CGFloat = 350.0
         let ysensitivity: CGFloat = 250.0
         
         // Calculate new position
@@ -91,20 +133,12 @@ class PlayerSprite: NSObject {
         let newPositionY = playerSprite!.position.y + accelerationY * ysensitivity
         
         // Ensure player stays within screen bounds
-        let clampedPositionX = clamp(value: newPositionX, lower: -900, upper: 900)
+        let clampedPositionX = clamp(value: newPositionX, lower: -640, upper: 640)
         let clampedPositionY = clamp(value: newPositionY, lower: -640, upper: 640)
         
         // Update player position
         playerSprite!.position = CGPoint(x: clampedPositionX, y: clampedPositionY)
         currentPlayerPosition = playerSprite!.position
-    }
-    
-    func hitPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if player == hitAudioPlayer {
-            DispatchQueue.main.async {
-                
-            }
-        }
     }
     
     // Limit player movement to stay within the screen bounds

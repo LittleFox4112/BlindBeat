@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "playerSprite.png",
+      "filename" : "ContainerPlayer.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

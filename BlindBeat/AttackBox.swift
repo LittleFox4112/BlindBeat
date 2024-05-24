@@ -5,6 +5,13 @@
 //  Created by Quinela Wensky on 15/05/24.
 //
 
+//
+//  attackCode.swift
+//  BlindBeat
+//
+//  Created by Quinela Wensky on 15/05/24.
+//
+
 import SpriteKit
 import AVFoundation
 
@@ -12,7 +19,6 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     var attackUpDown: SKSpriteNode?
     var attackBox: SKSpriteNode?
     var attackAudioPlayer: AVAudioPlayer?
-    var warningAudioPlayer: AVAudioPlayer?
     
     // Property to store pan and pattern value
     public var panValue: Float = 0.0
@@ -38,17 +44,6 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         attackBox?.isHidden = true
         attackUpDown?.isHidden = true
         adjustAttackCategoryBitMask()
-        
-        // Load the warning sound file
-        if let warningSoundURL = Bundle.main.url(forResource: "AttackAlarm", withExtension: "wav") {
-            do {
-                // Initialize audio player with the sound file
-                warningAudioPlayer = try AVAudioPlayer(contentsOf: warningSoundURL)
-                warningAudioPlayer?.prepareToPlay()
-            } catch {
-                print("Error loading warning audio file:", error.localizedDescription)
-            }
-        }
     }
     
     func applyAttackPhysicsBody() {
@@ -106,14 +101,6 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         }
     }
     
-    func attackWarning() {
-        print("Attack warning")
-        // Set pan according to the stored pan value
-        warningAudioPlayer?.pan = panValue
-        // Play the warning sound
-        warningAudioPlayer?.play()
-    }
-    
     func showUpDownAttack(){
         switch attackPattern {
         case 3:
@@ -125,12 +112,24 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         }
     }
     
-    func attackShow(pan: Float, attackPattern: Int, delay: TimeInterval) {
+    func attackShow(pan: Float, attackPattern: Int) {
         // Store the pan value and attack pattern
         panValue = pan
         self.attackPattern = attackPattern
+
+        // Set delay according to attack pattern
+        let delay: TimeInterval
+        switch attackPattern {
+        case 1:
+            delay = 0.5
+        case 2:
+            delay = 0.5
+        case 3, 4:
+            delay = 0.5
+        default:
+            delay = 0.5
+        }
         
-        // Load the appropriate attack sound
         loadAttackSound(attackPattern: attackPattern)
         
         // Play the attack sound immediately
@@ -154,15 +153,26 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
             
             self.adjustAttackCategoryBitMask()
             
-            if self.attackBox?.isHidden == false {
-                print("attackBox shown")
-            }else  if self.attackUpDown?.isHidden == false {
-                print("attackUpDown shown")
+            // Schedule to hide 0.1 seconds before audio finishes
+            if let attackAudioPlayer = self.attackAudioPlayer {
+                print (attackAudioPlayer.duration)
+                let hideTime = attackAudioPlayer.duration - 0.8
+                DispatchQueue.main.asyncAfter(deadline: .now() + hideTime) {
+                    self.hideAttackNodes()
+                }
             }
         }
         
         scheduledAttackTasks.append(showAttackBoxTask)
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: showAttackBoxTask)
+    }
+    
+    func hideAttackNodes() {
+        self.attackBox?.isHidden = true
+        self.attackUpDown?.isHidden = true
+        self.adjustAttackCategoryBitMask()
+        self.panValue = 0
+        self.attackPattern = 0
     }
     
     func attackStop() {
@@ -177,18 +187,5 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
             task.cancel()
         }
         scheduledAttackTasks.removeAll()
-    }
-    
-    // AVAudioPlayerDelegate method
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if player == attackAudioPlayer {
-            DispatchQueue.main.async {
-                self.attackBox?.isHidden = true
-                self.attackUpDown?.isHidden = true
-                self.adjustAttackCategoryBitMask()
-                self.panValue = 0
-                self.attackPattern = 0
-            }
-        }
     }
 }

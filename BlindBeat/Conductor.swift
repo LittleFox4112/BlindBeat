@@ -42,7 +42,7 @@ class Conductor {
     func playMainMusic() {
         print("main music start")
         mainAudioPlayer?.play()
-        setMainMusicVolume(volume: 0.1)
+        setMainMusicVolume(volume: 0.3)
         startTime = CACurrentMediaTime() // Record the start time when the music begins to play
     }
     
