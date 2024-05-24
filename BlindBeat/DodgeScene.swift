@@ -106,7 +106,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     // Calibration data
     var initialX: Double = 0.0
     var initialY: Double = 0.0
-    var isPlayerShowing: Bool = false
     
     private var timer: Timer?
     
@@ -135,7 +134,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         
         // Add and setup player node to the scene
         playerSprite.playerShow()
-        isPlayerShowing = true
         containerPlayer?.isHidden = false
         
         // Gyro data take
@@ -196,10 +194,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         if playerSprite.playerSprite?.isHidden == false {
             conductor.updateSongPosition(currentTime: currentTime)
-        }
-        
-        if isPlayerShowing == true {
-            playerSprite.playerShow()
         }
         
         enemySpeech()

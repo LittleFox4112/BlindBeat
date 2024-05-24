@@ -104,6 +104,8 @@ class PlayerSprite: NSObject {
         playerSprite?.isHidden = false
         playerInvis = 0
         playerHealth = 5
+        playerSprite?.zPosition = 2
+        playerSprite?.position = CGPoint(x: 0, y: 0)
         loadHitSound()
     }
     
