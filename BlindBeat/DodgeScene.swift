@@ -112,10 +112,8 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var timerLagu: SKLabelNode?
     var playerLive: SKLabelNode?
     
-    override func didMove(to view: SKView) {
-        view.showsPhysics = true
-        
-        background.zPosition = 1
+    override func didMove(to view: SKView) {        
+        background.zPosition = 0
         background.position = CGPoint(x: 0, y: 0)
         background.size = CGSize (width: 2400, height: 2000)
         backgroundEfekSamping.zPosition = 1
