@@ -18,7 +18,6 @@
 		BB4E87E62BF4632E00C08965 /* BlindBeatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87E52BF4632E00C08965 /* BlindBeatUITestsLaunchTests.swift */; };
 		BB4E87F32BF468FE00C08965 /* DodgeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BB4E87F22BF468FE00C08965 /* DodgeScene.sks */; };
 		BB4E87F52BF4698500C08965 /* DodgeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87F42BF4698500C08965 /* DodgeScene.swift */; };
-		BB4E87F72BF46AA400C08965 /* ViewTes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87F62BF46AA400C08965 /* ViewTes.swift */; };
 		BB4E87FD2BF49B0D00C08965 /* AttackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E87FC2BF49B0D00C08965 /* AttackBox.swift */; };
 		BB4E88032BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4E88022BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 */; };
 		BB4E88072BF4C21700C08965 /* AttackAlarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB4E88062BF4C21700C08965 /* AttackAlarm.wav */; };
@@ -70,7 +69,6 @@
 		BB4E87E52BF4632E00C08965 /* BlindBeatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlindBeatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BB4E87F22BF468FE00C08965 /* DodgeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DodgeScene.sks; sourceTree = "<group>"; };
 		BB4E87F42BF4698500C08965 /* DodgeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeScene.swift; sourceTree = "<group>"; };
-		BB4E87F62BF46AA400C08965 /* ViewTes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTes.swift; sourceTree = "<group>"; };
 		BB4E87FC2BF49B0D00C08965 /* AttackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackBox.swift; sourceTree = "<group>"; };
 		BB4E88022BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "pulse-laser-blast-135820.mp3"; path = "../../../BlindBeat sounds/pulse-laser-blast-135820.mp3"; sourceTree = "<group>"; };
 		BB4E88062BF4C21700C08965 /* AttackAlarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = AttackAlarm.wav; path = "../../../BlindBeat sounds/AttackAlarm.wav"; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 			children = (
 				BB4E88012BF4C02100C08965 /* Audios */,
 				BB4E87BF2BF4632C00C08965 /* AppDelegate.swift */,
-				BB4E87F62BF46AA400C08965 /* ViewTes.swift */,
 				BB4E87F22BF468FE00C08965 /* DodgeScene.sks */,
 				BB4E87C32BF4632C00C08965 /* Actions.sks */,
 				BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */,
@@ -339,7 +336,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB4E87F72BF46AA400C08965 /* ViewTes.swift in Sources */,
 				BB4E87F52BF4698500C08965 /* DodgeScene.swift in Sources */,
 				BBFC3BBF2BF74C460098147D /* CollisionCategory.swift in Sources */,
 				BB4E880B2BF5FBAB00C08965 /* Conductor.swift in Sources */,

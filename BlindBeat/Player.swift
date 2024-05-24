@@ -32,8 +32,8 @@ class PlayerSprite: NSObject {
         playerSprite = scene.childNode(withName: "playerTes") as? SKSpriteNode
         
         // Configure physics body for player sprite
-        if let playerSprite = playerSprite, let texture = playerSprite.texture {
-            playerSprite.physicsBody = SKPhysicsBody(texture: texture, size: playerSprite.size)
+        if let playerSprite = playerSprite {
+            playerSprite.physicsBody = SKPhysicsBody(circleOfRadius: 35)
             playerSprite.physicsBody?.isDynamic = true
             playerSprite.physicsBody?.affectedByGravity = false
             playerSprite.physicsBody?.allowsRotation = false
@@ -96,7 +96,7 @@ class PlayerSprite: NSObject {
         hitAudioPlayer?.play()
         conductor.setMainMusicVolume(volume: 0.1)
         if playerInvis == 0 {
-            conductor.setMainMusicVolume(volume: 0.3)
+            conductor.setMainMusicVolume(volume: 0.2)
         }
     }
     

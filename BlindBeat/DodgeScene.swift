@@ -19,6 +19,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var conductor = Conductor()
     var containerPlayer:SKSpriteNode?
     var background = SKSpriteNode(imageNamed: "background")
+    var backgroundEfekSamping = SKSpriteNode(imageNamed: "efekSamping")
     
     // Attack schedule
     var attackTimes: [(time: Double, pan: Float, attackPattern: Int)] = [
@@ -105,7 +106,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     // Calibration data
     var initialX: Double = 0.0
     var initialY: Double = 0.0
-    var isCalibrated: Bool = false
+    var isPlayerShowing: Bool = false
     
     private var timer: Timer?
     
@@ -115,9 +116,12 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         view.showsPhysics = true
         
-        background.zPosition = 0
+        background.zPosition = 1
         background.position = CGPoint(x: 0, y: 0)
         background.size = CGSize (width: 2400, height: 2000)
+        backgroundEfekSamping.zPosition = 1
+        backgroundEfekSamping.position = CGPoint(x: 0, y: 0)
+        backgroundEfekSamping.size = CGSize (width: 2400, height: 2000)
 
         addChild(background)
         
@@ -131,6 +135,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         
         // Add and setup player node to the scene
         playerSprite.playerShow()
+        isPlayerShowing = true
         containerPlayer?.isHidden = false
         
         // Gyro data take
@@ -192,6 +197,11 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         if playerSprite.playerSprite?.isHidden == false {
             conductor.updateSongPosition(currentTime: currentTime)
         }
+        
+        if isPlayerShowing == true {
+            playerSprite.playerShow()
+        }
+        
         enemySpeech()
         attackPlayer()
         if playerSprite.playerInvis > 0 {
