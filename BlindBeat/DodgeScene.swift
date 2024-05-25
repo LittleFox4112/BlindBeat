@@ -218,7 +218,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        print("collision setup")
         print(playerSprite.playerHealth)
         print(playerSprite.playerInvis)
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
