@@ -25,30 +25,35 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
     private var timer: Timer?
     
     override func didMove(to view: SKView) {
-        background = childNode(withName: "backgroundIntro") as? SKSpriteNode
-        backgroundEfekSamping = childNode(withName: "backgroundEfekSampingIntro") as? SKSpriteNode
+        playerSprite = PlayerSprite(scene: self)
+        attackBox = AttackBox(scene: self)
+        containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
+        background = scene!.childNode(withName: "background") as? SKSpriteNode
+        backgroundEfekSamping = scene!.childNode(withName: "backgroundEfekSamping") as? SKSpriteNode
         
-        background!.zPosition = 0
-        background!.position = CGPoint(x: 0, y: 0)
-        background!.size = CGSize (width: 2400, height: 1680)
-        backgroundEfekSamping!.zPosition = 1
-        backgroundEfekSamping!.position = CGPoint(x: 0, y: 0)
-        backgroundEfekSamping!.size = CGSize (width: 2400, height: 1680)
+        background?.zPosition = 1
+        background?.position = CGPoint(x: 0, y: 0)
+        background?.size = CGSize (width: 2400, height: 1680)
+        backgroundEfekSamping?.zPosition = 1
+        backgroundEfekSamping?.position = CGPoint(x: 0, y: 0)
+        backgroundEfekSamping?.size = CGSize (width: 2400, height: 1680)
         
         background!.isHidden = false
         backgroundEfekSamping!.isHidden = false
         
-        playerSprite = PlayerSprite(scene: self)
-        attackBox = AttackBox(scene: self)
-        containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
+        startGyro()
         
         playIntroAudio()
         let wait = SKAction.wait(forDuration: 30.0)
+        let waitChangeScene = SKAction.wait(forDuration: 68.0)
         let enableTutorialSkip = SKAction.run { [self] in
             isTutorialSkippable = true
+            print(isTutorialSkippable)
         }
-        self.run(SKAction.sequence([wait, enableTutorialSkip]))
-        
+        let changeScene = SKAction.run { [self] in
+            changeToDodgeScene()
+        }
+        self.run(SKAction.sequence([wait, enableTutorialSkip, waitChangeScene, changeScene]))
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -81,6 +86,7 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
     func changeToDodgeScene(){
         let dodgeScene = DodgeScene(size: self.size)
         dodgeScene.scaleMode = .aspectFill
+        dodgeScene.position = CGPoint(x: 0, y: 0)
         let transition = SKTransition.fade(withDuration: 1.0)
         self.view?.presentScene(dodgeScene, transition: transition)
     }
@@ -105,19 +111,5 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
             RunLoop.current.add(self.timer!, forMode: .default)
         }
     }
-    
-    func stopGyro() {
-        // Stop the timer
-        timer?.invalidate()
-        timer = nil
-        
-        // Stop accelerometer updates
-        manager.stopAccelerometerUpdates()
-    }
-    
-    
-    override func willMove(from view: SKView) {
-        // Ensure to stop gyro updates when the scene is removed from the view
-        stopGyro()
-    }
+
 }

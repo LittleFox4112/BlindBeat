@@ -19,7 +19,7 @@ class PlayerSprite: NSObject {
     
     var playerHealth: Int = 3
     var playerInvis: Int = 0
-    var currentPlayerPosition: CGPoint? = CGPoint(x: 0, y: -400)
+    var currentPlayerPosition: CGPoint? = CGPoint(x: 0, y: 0)
     
     let hitsound1 = Bundle.main.url(forResource: "Hit-sound", withExtension: "mp3")
     let enemysound1 = Bundle.main.url(forResource: "Audio-musuh-1", withExtension: "mp3")
@@ -30,8 +30,8 @@ class PlayerSprite: NSObject {
         super.init()
         // Get reference to the attack box node
         playerSprite = scene.childNode(withName: "playerTes") as? SKSpriteNode
-        
-        // Configure physics body for player sprite
+        playerSprite?.position = CGPoint(x: 0, y: 0)
+
         if let playerSprite = playerSprite {
             playerSprite.physicsBody = SKPhysicsBody(circleOfRadius: 35)
             playerSprite.physicsBody?.isDynamic = true
