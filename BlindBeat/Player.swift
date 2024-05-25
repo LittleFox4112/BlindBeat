@@ -10,7 +10,7 @@ import GameplayKit
 import AVFoundation
 
 class PlayerSprite: NSObject {
-    var playerSprite: SKSpriteNode?
+    var playerSprite: SKSpriteNode!
     var hitAudioPlayer: AVAudioPlayer?
     var enemyAudioPlayer: AVAudioPlayer?
     var conductor = Conductor()
@@ -28,7 +28,6 @@ class PlayerSprite: NSObject {
     
     init(scene: SKScene) {
         super.init()
-        // Get reference to the attack box node
         playerSprite = scene.childNode(withName: "playerTes") as? SKSpriteNode
         playerSprite?.position = CGPoint(x: 0, y: 0)
 
@@ -83,16 +82,17 @@ class PlayerSprite: NSObject {
         loadEnemySound(speechPattern: speechPattern)
         enemyAudioPlaying = true
         if enemyAudioPlaying == true {
-            conductor.setMainMusicVolume(volume: 0.1)
+            conductor.setMainMusicVolume(volume: 0.06)
             enemyAudioPlaying = false
             // delegate untuk set main music volume ke 0.3 stelah audio kelar
         } else {
-            conductor.setMainMusicVolume(volume: 0.3)
+            conductor.setMainMusicVolume(volume: 0.1)
         }
         self.enemyAudioPlayer?.play()
     }
     
     func playHitAudio(){
+        hitAudioPlayer?.volume = 0.6
         hitAudioPlayer?.play()
         conductor.setMainMusicVolume(volume: 0.1)
         if playerInvis == 0 {
@@ -143,6 +143,7 @@ class PlayerSprite: NSObject {
         playerSprite!.position = CGPoint(x: clampedPositionX, y: clampedPositionY)
         currentPlayerPosition = playerSprite!.position
     }
+
     
     // Limit player movement to stay within the screen bounds
     func clamp(value: CGFloat, lower: CGFloat, upper: CGFloat) -> CGFloat {

@@ -79,12 +79,16 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         switch attackPattern {
         case 1:
             soundFileName = attacksound1
+            attackAudioPlayer?.volume = 1.5
         case 2:
             soundFileName = attacksound2
+            attackAudioPlayer?.volume = 1.5
         case 3:
             soundFileName = attacksound3
+            attackAudioPlayer?.volume = 1
         case 4:
             soundFileName = attacksound4
+            attackAudioPlayer?.volume = 1
         default:
             soundFileName = attacksound1 // Default sound
         }

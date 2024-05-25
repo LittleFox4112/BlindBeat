@@ -13,14 +13,15 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
     let manager = CMMotionManager()
     
     var playerSprite: PlayerSprite!
+    var playerSpriteNode: SKSpriteNode!
     var attackBox: AttackBox!
     var conductor = Conductor()
     var containerPlayer:SKSpriteNode?
-    var background: SKSpriteNode?
-    var backgroundEfekSamping: SKSpriteNode?
+    var background = SKSpriteNode(imageNamed: "background")
+    var backgroundEfekSamping = SKSpriteNode(imageNamed: "efekSamping")
     var introAudioPlayer: AVAudioPlayer?
     
-    var isTutorialSkippable: Bool = false
+    var isTutorialSkippable: Bool = true
     
     private var timer: Timer?
     
@@ -28,32 +29,37 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
         playerSprite = PlayerSprite(scene: self)
         attackBox = AttackBox(scene: self)
         containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
-        background = scene!.childNode(withName: "background") as? SKSpriteNode
-        backgroundEfekSamping = scene!.childNode(withName: "backgroundEfekSamping") as? SKSpriteNode
-        
-        background?.zPosition = 1
-        background?.position = CGPoint(x: 0, y: 0)
-        background?.size = CGSize (width: 2400, height: 1680)
-        backgroundEfekSamping?.zPosition = 1
-        backgroundEfekSamping?.position = CGPoint(x: 0, y: 0)
-        backgroundEfekSamping?.size = CGSize (width: 2400, height: 1680)
-        
-        background!.isHidden = false
-        backgroundEfekSamping!.isHidden = false
+        background.zPosition = 0
+        background.position = CGPoint(x: 0, y: 0)
+        background.size = CGSize (width: 2400, height: 1680)
+        backgroundEfekSamping.zPosition = 1
+        backgroundEfekSamping.position = CGPoint(x: 0, y: 0)
+        backgroundEfekSamping.size = CGSize (width: 2400, height: 1680)
+
+        addChild(background)
+        addChild(backgroundEfekSamping)
+        background.isHidden = false
+        backgroundEfekSamping.isHidden = false
         
         startGyro()
         
         playIntroAudio()
         let wait = SKAction.wait(forDuration: 30.0)
-        let waitChangeScene = SKAction.wait(forDuration: 68.0)
+        let waitSetPlayer = SKAction.wait(forDuration: 62.0)
+        let waitlittle = SKAction.wait(forDuration: 6.0)
         let enableTutorialSkip = SKAction.run { [self] in
             isTutorialSkippable = true
             print(isTutorialSkippable)
         }
+        let setPlayer = SKAction.run { [self] in
+            playerSprite.currentPlayerPosition = CGPointZero
+            stopGyro()
+        }
+        
         let changeScene = SKAction.run { [self] in
             changeToDodgeScene()
         }
-        self.run(SKAction.sequence([wait, enableTutorialSkip, waitChangeScene, changeScene]))
+        self.run(SKAction.sequence([wait, enableTutorialSkip, waitSetPlayer, setPlayer, waitlittle, changeScene]))
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -69,7 +75,7 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
                 introAudioPlayer = try AVAudioPlayer(contentsOf: fileURL)
                 introAudioPlayer?.prepareToPlay()
                 introAudioPlayer?.volume = 0.7
-
+                
                 introAudioPlayer?.play()
             } catch {
                 print("Error playing audio file: \(error.localizedDescription)")
@@ -88,6 +94,7 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
         dodgeScene.scaleMode = .aspectFill
         dodgeScene.position = CGPoint(x: 0, y: 0)
         let transition = SKTransition.fade(withDuration: 1.0)
+
         self.view?.presentScene(dodgeScene, transition: transition)
     }
     
@@ -102,7 +109,7 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
                 if let data = self?.manager.accelerometerData {
                     let x = data.acceleration.y
                     let y = data.acceleration.x
-
+                    
                     self?.playerSprite.updatePlayerPosition(accelerationX: CGFloat(-x), accelerationY: CGFloat(y))
                 }
             }
@@ -111,5 +118,14 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
             RunLoop.current.add(self.timer!, forMode: .default)
         }
     }
-
+    
+    func stopGyro() {
+        // Stop the timer
+        timer?.invalidate()
+        timer = nil
+        
+        // Stop accelerometer updates
+        manager.stopAccelerometerUpdates()
+    }
+    
 }

@@ -112,8 +112,12 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var timerLagu: SKLabelNode?
     var playerLive: SKLabelNode?
     
-    override func didMove(to view: SKView) {        
+    override func didMove(to view: SKView) {
         view.showsPhysics = true
+        
+        playerSprite = PlayerSprite(scene: self)
+        attackBox = AttackBox(scene: self)
+        containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
         
         background.zPosition = 0
         background.position = CGPoint(x: 0, y: 0)
@@ -127,17 +131,17 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         background.isHidden = false
         backgroundEfekSamping.isHidden = false
         
-        // Initialize class with the scene reference
-        playerSprite = PlayerSprite(scene: self)
-        attackBox = AttackBox(scene: self)
-        containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
-        
-        // Set up the scene
         self.physicsWorld.contactDelegate = self
         
-        // Add and setup player node to the scene
-        playerSprite.playerShow()
-        containerPlayer?.isHidden = false
+        // Use the retained player sprite instance
+            playerSprite.playerShow()
+            if let playerSprite = playerSprite {
+                print("playerSprite in DodgeScene: \(playerSprite)")
+                playerSprite.playerSprite?.position = CGPoint(x: 0, y: 0)
+            } else {
+                print("playerSprite is nil in DodgeScene")
+            }
+            containerPlayer?.isHidden = false
         
         // Gyro data take
         manager.startAccelerometerUpdates()
