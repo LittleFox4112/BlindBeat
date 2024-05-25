@@ -141,21 +141,24 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
             if pan == -1 {
                 self.attackBox?.position.x = -609.5
                 self.attackBox?.isHidden = false
+                self.attackBox!.zPosition = 3
 
             } else if pan == 1 {
                 self.attackBox?.position.x = 609.5
                 self.attackBox?.isHidden = false
+                self.attackBox!.zPosition = 3
 
             } else if pan == 0 {
                 self.showUpDownAttack()
                 self.attackUpDown?.isHidden = false
+                self.attackUpDown!.zPosition = 3
+
             }
             
             self.adjustAttackCategoryBitMask()
             
             // Schedule to hide 0.1 seconds before audio finishes
             if let attackAudioPlayer = self.attackAudioPlayer {
-                print (attackAudioPlayer.duration)
                 let hideTime = attackAudioPlayer.duration - 0.8
                 DispatchQueue.main.asyncAfter(deadline: .now() + hideTime) {
                     self.hideAttackNodes()

@@ -113,14 +113,19 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var playerLive: SKLabelNode?
     
     override func didMove(to view: SKView) {        
+        view.showsPhysics = true
+        
         background.zPosition = 0
         background.position = CGPoint(x: 0, y: 0)
-        background.size = CGSize (width: 2400, height: 2000)
+        background.size = CGSize (width: 2400, height: 1680)
         backgroundEfekSamping.zPosition = 1
         backgroundEfekSamping.position = CGPoint(x: 0, y: 0)
-        backgroundEfekSamping.size = CGSize (width: 2400, height: 2000)
+        backgroundEfekSamping.size = CGSize (width: 2400, height: 1680)
 
         addChild(background)
+        addChild(backgroundEfekSamping)
+        background.isHidden = false
+        backgroundEfekSamping.isHidden = false
         
         // Initialize class with the scene reference
         playerSprite = PlayerSprite(scene: self)
@@ -212,8 +217,10 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         print("Current Song Position: \(formattedSongPosition) seconds")
     }
     
-    // Contact delegate method --> check collision and send info
     func didBegin(_ contact: SKPhysicsContact) {
+        print("collision setup")
+        print(playerSprite.playerHealth)
+        print(playerSprite.playerInvis)
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         if contactMask == (CollisionCategory.player.rawValue | CollisionCategory.attack.rawValue) {
             if playerSprite.playerHealth > 0 && playerSprite.playerInvis == 0 {

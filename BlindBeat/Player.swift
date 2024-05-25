@@ -110,6 +110,7 @@ class PlayerSprite: NSObject {
     }
     
     func playerCollision() {
+        print("collision detected")
         playerHealth -= 1
         playHitAudio()
         if playerHealth > 0 {

@@ -27,6 +27,15 @@
 		BB87F35B2C00AFE400444B8F /* Audio-musuh-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB87F3582C00AFE400444B8F /* Audio-musuh-2.mp3 */; };
 		BB87F35C2C00AFE400444B8F /* Audio-musuh-3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB87F3592C00AFE400444B8F /* Audio-musuh-3.mp3 */; };
 		BB87F35D2C00AFE400444B8F /* Audio-musuh-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB87F35A2C00AFE400444B8F /* Audio-musuh-1.mp3 */; };
+		BB87F35F2C01168A00444B8F /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BB87F35E2C01168A00444B8F /* TutorialScene.sks */; };
+		BB87F3612C0116BE00444B8F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87F3602C0116BE00444B8F /* TutorialScene.swift */; };
+		BB87F3652C012A0D00444B8F /* Instruksi3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB87F3622C012A0C00444B8F /* Instruksi3.mp3 */; };
+		BB87F3662C012A0D00444B8F /* Instruksi1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB87F3632C012A0D00444B8F /* Instruksi1.mp3 */; };
+		BB87F3672C012A0D00444B8F /* Instruksi2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB87F3642C012A0D00444B8F /* Instruksi2.mp3 */; };
+		BBE0E74D2C018F8E00CAD342 /* StoryIntro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBE0E74C2C018F8E00CAD342 /* StoryIntro.mp3 */; };
+		BBE0E74F2C01956A00CAD342 /* waitscreen-music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBE0E74E2C01956A00CAD342 /* waitscreen-music.mp3 */; };
+		BBE0E7512C01A70F00CAD342 /* IntroScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BBE0E7502C01A70F00CAD342 /* IntroScene.sks */; };
+		BBE0E7532C01A74B00CAD342 /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE0E7522C01A74B00CAD342 /* IntroScene.swift */; };
 		BBEAE10D2BFE276300572CA8 /* Hit-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE10C2BFE276300572CA8 /* Hit-sound.mp3 */; };
 		BBEAE1182BFE398B00572CA8 /* Beam-Attack-Atas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE1162BFE398B00572CA8 /* Beam-Attack-Atas.mp3 */; };
 		BBEAE1192BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE1172BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 */; };
@@ -78,6 +87,15 @@
 		BB87F3582C00AFE400444B8F /* Audio-musuh-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Audio-musuh-2.mp3"; path = "../../../BlindBeat sounds/Audio-musuh-2.mp3"; sourceTree = "<group>"; };
 		BB87F3592C00AFE400444B8F /* Audio-musuh-3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Audio-musuh-3.mp3"; path = "../../../BlindBeat sounds/Audio-musuh-3.mp3"; sourceTree = "<group>"; };
 		BB87F35A2C00AFE400444B8F /* Audio-musuh-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Audio-musuh-1.mp3"; path = "../../../BlindBeat sounds/Audio-musuh-1.mp3"; sourceTree = "<group>"; };
+		BB87F35E2C01168A00444B8F /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
+		BB87F3602C0116BE00444B8F /* TutorialScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
+		BB87F3622C012A0C00444B8F /* Instruksi3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Instruksi3.mp3; path = "../../../BlindBeat sounds/Instruksi3.mp3"; sourceTree = "<group>"; };
+		BB87F3632C012A0D00444B8F /* Instruksi1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Instruksi1.mp3; path = "../../../BlindBeat sounds/Instruksi1.mp3"; sourceTree = "<group>"; };
+		BB87F3642C012A0D00444B8F /* Instruksi2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Instruksi2.mp3; path = "../../../BlindBeat sounds/Instruksi2.mp3"; sourceTree = "<group>"; };
+		BBE0E74C2C018F8E00CAD342 /* StoryIntro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = StoryIntro.mp3; path = "../../../BlindBeat sounds/StoryIntro.mp3"; sourceTree = "<group>"; };
+		BBE0E74E2C01956A00CAD342 /* waitscreen-music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "waitscreen-music.mp3"; path = "../../../BlindBeat sounds/Audio Instruksi Tutorial/waitscreen-music.mp3"; sourceTree = "<group>"; };
+		BBE0E7502C01A70F00CAD342 /* IntroScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroScene.sks; sourceTree = "<group>"; };
+		BBE0E7522C01A74B00CAD342 /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
 		BBEAE10C2BFE276300572CA8 /* Hit-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Hit-sound.mp3"; path = "../../../BlindBeat sounds/Hit-sound.mp3"; sourceTree = "<group>"; };
 		BBEAE1162BFE398B00572CA8 /* Beam-Attack-Atas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-Atas.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-Atas.mp3"; sourceTree = "<group>"; };
 		BBEAE1172BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-Bawah.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-Bawah.mp3"; sourceTree = "<group>"; };
@@ -139,12 +157,16 @@
 				BB4E88012BF4C02100C08965 /* Audios */,
 				BB4E87BF2BF4632C00C08965 /* AppDelegate.swift */,
 				BB4E87F22BF468FE00C08965 /* DodgeScene.sks */,
+				BB87F35E2C01168A00444B8F /* TutorialScene.sks */,
+				BBE0E7502C01A70F00CAD342 /* IntroScene.sks */,
 				BB4E87C32BF4632C00C08965 /* Actions.sks */,
+				BB4E87F42BF4698500C08965 /* DodgeScene.swift */,
+				BB87F3602C0116BE00444B8F /* TutorialScene.swift */,
+				BBE0E7522C01A74B00CAD342 /* IntroScene.swift */,
 				BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */,
 				BB4E880A2BF5FBAB00C08965 /* Conductor.swift */,
 				BBFC3BC62BFC6E7B0098147D /* Player.swift */,
 				BB4E87FC2BF49B0D00C08965 /* AttackBox.swift */,
-				BB4E87F42BF4698500C08965 /* DodgeScene.swift */,
 				BB4E87C72BF4632C00C08965 /* GameViewController.swift */,
 				BB4E87C92BF4632C00C08965 /* Main.storyboard */,
 				BB4E87CC2BF4632D00C08965 /* Assets.xcassets */,
@@ -176,6 +198,11 @@
 				BB4E88062BF4C21700C08965 /* AttackAlarm.wav */,
 				BB4E880E2BF6051B00C08965 /* MainMusic.mp3 */,
 				BBFC3BC02BF891800098147D /* HeatleyBros-8BitHero.mp3 */,
+				BBE0E74E2C01956A00CAD342 /* waitscreen-music.mp3 */,
+				BBE0E74C2C018F8E00CAD342 /* StoryIntro.mp3 */,
+				BB87F3632C012A0D00444B8F /* Instruksi1.mp3 */,
+				BB87F3642C012A0D00444B8F /* Instruksi2.mp3 */,
+				BB87F3622C012A0C00444B8F /* Instruksi3.mp3 */,
 				BB87F35A2C00AFE400444B8F /* Audio-musuh-1.mp3 */,
 				BB87F3582C00AFE400444B8F /* Audio-musuh-2.mp3 */,
 				BB87F3592C00AFE400444B8F /* Audio-musuh-3.mp3 */,
@@ -294,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBE0E74D2C018F8E00CAD342 /* StoryIntro.mp3 in Resources */,
 				BBEAE1192BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 in Resources */,
 				BB4E87CB2BF4632C00C08965 /* Base in Resources */,
 				BB4E87CD2BF4632D00C08965 /* Assets.xcassets in Resources */,
@@ -302,14 +330,20 @@
 				BBEAE1182BFE398B00572CA8 /* Beam-Attack-Atas.mp3 in Resources */,
 				BBEAE10D2BFE276300572CA8 /* Hit-sound.mp3 in Resources */,
 				BBFC3BC52BF892300098147D /* Beam-Attack-2.mp3 in Resources */,
+				BBE0E7512C01A70F00CAD342 /* IntroScene.sks in Resources */,
 				BB4E88032BF4C06F00C08965 /* pulse-laser-blast-135820.mp3 in Resources */,
 				BB4E87C42BF4632C00C08965 /* Actions.sks in Resources */,
 				BB4E88072BF4C21700C08965 /* AttackAlarm.wav in Resources */,
 				BB87F35C2C00AFE400444B8F /* Audio-musuh-3.mp3 in Resources */,
+				BBE0E74F2C01956A00CAD342 /* waitscreen-music.mp3 in Resources */,
 				BBFC3BC12BF891800098147D /* HeatleyBros-8BitHero.mp3 in Resources */,
 				BB4E87F32BF468FE00C08965 /* DodgeScene.sks in Resources */,
 				BB4E87D02BF4632D00C08965 /* Base in Resources */,
+				BB87F3652C012A0D00444B8F /* Instruksi3.mp3 in Resources */,
+				BB87F3672C012A0D00444B8F /* Instruksi2.mp3 in Resources */,
 				BB4E88092BF4C30500C08965 /* AttackSound.wav in Resources */,
+				BB87F3662C012A0D00444B8F /* Instruksi1.mp3 in Resources */,
+				BB87F35F2C01168A00444B8F /* TutorialScene.sks in Resources */,
 				BB87F35D2C00AFE400444B8F /* Audio-musuh-1.mp3 in Resources */,
 				BB87F35B2C00AFE400444B8F /* Audio-musuh-2.mp3 in Resources */,
 			);
@@ -341,7 +375,9 @@
 				BB4E880B2BF5FBAB00C08965 /* Conductor.swift in Sources */,
 				BBFC3BC72BFC6E7B0098147D /* Player.swift in Sources */,
 				BB4E87C82BF4632C00C08965 /* GameViewController.swift in Sources */,
+				BB87F3612C0116BE00444B8F /* TutorialScene.swift in Sources */,
 				BB4E87FD2BF49B0D00C08965 /* AttackBox.swift in Sources */,
+				BBE0E7532C01A74B00CAD342 /* IntroScene.swift in Sources */,
 				BB4E87C02BF4632C00C08965 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
