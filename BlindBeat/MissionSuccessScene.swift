@@ -36,7 +36,7 @@ class MissionSuccessScene: SKScene, SKPhysicsContactDelegate {
             do {
                 missionSuccessAudioPlayer = try AVAudioPlayer(contentsOf: fileURL)
                 missionSuccessAudioPlayer?.prepareToPlay()
-                missionSuccessAudioPlayer?.volume = 1
+                missionSuccessAudioPlayer?.volume = 1.3
                 missionSuccessAudioPlayer?.play()
             } catch {
                 print("Error playing audio file: \(error.localizedDescription)")
