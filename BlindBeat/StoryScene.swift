@@ -9,20 +9,10 @@ import SpriteKit
 import AVFoundation
 import AVKit
 
-class StoryScene: SKScene, AVAudioPlayerDelegate {
-    var audioPlayer: AVAudioPlayer?
-    var introBGPlayer: AVAudioPlayer?
-    var timer: Timer?
-    var calibrationCompleted = false
-    
-    var isScreenTappable = false
-    
-    var beginScreen: SKSpriteNode?
-    
-    var instruksi3Completed: Bool = false
-    var currentlyStep: Int = 0
+class StoryScene: SKScene {
     
     override func didMove(to view: SKView) {
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         backgroundColor = SKColor.black
         
         playStoryVideo()
@@ -36,10 +26,12 @@ class StoryScene: SKScene, AVAudioPlayerDelegate {
     
     func playStoryVideo() {
         print("Attempting to play story video")
-        let sample = SKVideoNode(fileNamed: "storySceneVideo.mp4")
-        sample.position = CGPoint(x: 0, y: 0)
-        addChild(sample)
-        sample.play()
+        let storyVid = SKVideoNode(fileNamed: "storySceneVideo.mp4")
+        storyVid.position = CGPointZero
+        storyVid.size = self.size
+        storyVid.zPosition = 1
+        addChild(storyVid)
+        storyVid.play()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -59,7 +51,6 @@ class StoryScene: SKScene, AVAudioPlayerDelegate {
         }
     }
     
-
     override func willMove(from view: SKView) {
         self.removeAllActions()
     }

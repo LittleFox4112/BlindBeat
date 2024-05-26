@@ -61,7 +61,7 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         playIntroBGMusic()
         
         let wait = SKAction.wait(forDuration: 3.0)
-        let waitUntilAudio3Finishes = SKAction.wait(forDuration: 5.0)
+        let waitUntilAudio3Finishes = SKAction.wait(forDuration: 4.0)
         let playAudio3 = SKAction.run { [self] in
             playAudio(named: "Instruksi3")
         }
@@ -77,11 +77,12 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         }
         changeToStoryScene()
     }
-
     
     func changeToStoryScene() {
+        self.removeAllActions()
         let storyScene = StoryScene(size: self.size)
         storyScene.scaleMode = .aspectFill
+        storyScene.position = CGPoint(x: 0, y: 0)
         let transition = SKTransition.fade(withDuration: 1.0)
         self.view?.presentScene(storyScene, transition: transition)
     }
@@ -91,7 +92,7 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
                 audioPlayer?.prepareToPlay()
-                audioPlayer?.volume = 0.7
+                audioPlayer?.volume = 0.8
                 audioPlayer?.play()
             } catch {
                 print("Error playing audio file: \(error.localizedDescription)")
