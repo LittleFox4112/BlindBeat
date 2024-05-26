@@ -136,8 +136,8 @@ class PlayerSprite: NSObject {
         let newPositionY = playerSprite!.position.y + accelerationY * ysensitivity
         
         // Ensure player stays within screen bounds
-        let clampedPositionX = clamp(value: newPositionX, lower: -640, upper: 640)
-        let clampedPositionY = clamp(value: newPositionY, lower: -640, upper: 640)
+        let clampedPositionX = clamp(value: newPositionX, lower: -600, upper: 600)
+        let clampedPositionY = clamp(value: newPositionY, lower: -600, upper: 600)
         
         // Update player position
         playerSprite!.position = CGPoint(x: clampedPositionX, y: clampedPositionY)
