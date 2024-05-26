@@ -115,6 +115,18 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {        
         view.showsPhysics = true
         
+<<<<<<< Updated upstream
+=======
+//        playerSprite = PlayerSprite(scene: self)
+        
+        // Initialize the singleton instance with the current scene
+        PlayerSprite.shared.initialize(with: self)
+        PlayerSprite.shared.playerShow()
+        
+        attackBox = AttackBox(scene: self)
+        containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
+        
+>>>>>>> Stashed changes
         background.zPosition = 0
         background.position = CGPoint(x: 0, y: 0)
         background.size = CGSize (width: 2400, height: 1680)

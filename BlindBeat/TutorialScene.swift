@@ -6,13 +6,12 @@
 //
 
 import SpriteKit
-import AVFoundation
+import GameplayKit
 import CoreMotion
+import AVFoundation
 
 class TutorialScene: SKScene, AVAudioPlayerDelegate {
-    var playerSprite: PlayerSprite!
-    var playerSpriteNode: SKSpriteNode!
-    var currentPlayerPosition: CGPoint = CGPoint(x: 0, y: -400)
+    //    var currentPlayerPosition: CGPoint = CGPoint(x: 0, y: -400)
     var instructionLabel: SKLabelNode!
     var motionManager: CMMotionManager!
     var audioPlayer: AVAudioPlayer?
@@ -23,9 +22,9 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
     var isScreenTappable = false
     
     var background = SKSpriteNode(imageNamed: "background")
-    var beginScreen : SKSpriteNode?
-    var teksInstruksi1 : SKSpriteNode?
-    var teksInstruksi2 : SKSpriteNode?
+    var beginScreen: SKSpriteNode?
+    var teksInstruksi1: SKSpriteNode?
+    var teksInstruksi2: SKSpriteNode?
     var instruksi3Completed: Bool = false
     var currentlyStep: Int = 0
     
@@ -40,20 +39,15 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         
         background.zPosition = 0
         background.position = CGPoint(x: 0, y: 0)
-        background.size = CGSize (width: 2400, height: 2000)
+        background.size = CGSize(width: 2400, height: 2000)
         
-        playerSprite = PlayerSprite(scene: self)
-        playerSprite.playerShow()
-        playerSpriteNode = playerSprite.playerSprite
-        
-        instructionLabel = SKLabelNode(fontNamed: "Helvetica")
-        instructionLabel.fontSize = 24
-        instructionLabel.position = CGPoint(x: 0, y: 100)
-        addChild(instructionLabel)
+        // Initialize the singleton instance with the current scene
+        PlayerSprite.shared.initialize(with: self)
+        PlayerSprite.shared.playerShow()
         
         background.zPosition = 0
         background.position = CGPoint(x: 0, y: 0)
-        background.size = CGSize (width: 2400, height: 1680)
+        background.size = CGSize(width: 2400, height: 1680)
         addChild(background)
         
         motionManager = CMMotionManager()
@@ -62,6 +56,7 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
     
     func showStep1() {
         currentlyStep = 1
+        self.startGyro()
         let waitLoad = SKAction.wait(forDuration: 3.0)
         let wait = SKAction.wait(forDuration: 7.0)
         let playFirstAudio = SKAction.run { [self] in
@@ -69,34 +64,33 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
             self.teksInstruksi1!.isHidden = false
             self.teksInstruksi1!.zPosition = 1
         }
-        let startGyro = SKAction.run { [self] in
+        let positionCheck = SKAction.run { [self] in
             isScreenTappable = true
-            self.startGyro()
+            calibrationCompleted = false
         }
-        self.run(SKAction.sequence([waitLoad, playFirstAudio, wait, startGyro]))
+        self.run(SKAction.sequence([waitLoad, playFirstAudio, wait, positionCheck]))
     }
     
     func updatePlayerPosition(accelerationX: CGFloat, accelerationY: CGFloat) {
-        let xsensitivity: CGFloat = 350.0
-        let ysensitivity: CGFloat = 250.0
+        // Update the player position using the currentPlayerPosition from PlayerSprite
+        PlayerSprite.shared.updatePlayerPosition(accelerationX: accelerationX, accelerationY: accelerationY)
         
-        let newPositionX = playerSpriteNode.position.x + accelerationX * xsensitivity
-        let newPositionY = playerSpriteNode.position.y + accelerationY * ysensitivity
+        // Use the currentPlayerPosition to update the playerSprite's position
+        let currentPlayerPosition = PlayerSprite.shared.currentPlayerPosition
+        PlayerSprite.shared.playerSprite.position = currentPlayerPosition!
         
-        let clampedPositionX = clamp(value: newPositionX, lower: -640, upper: 640)
-        let clampedPositionY = clamp(value: newPositionY, lower: -640, upper: 640)
+        let middleAreaRect = CGRect(x: 0, y: 0, width: 200, height: 200)
+        let middleArea = SKShapeNode(rect: middleAreaRect)
+        middleArea.fillColor = .clear
+        middleArea.strokeColor = .red // Change color as needed
+        middleArea.lineWidth = 2
+        middleArea.zPosition = 10 // Ensure it's above other nodes
+        addChild(middleArea)
         
-        playerSpriteNode.position = CGPoint(x: clampedPositionX, y: clampedPositionY)
-        currentPlayerPosition = playerSpriteNode.position
-        
-        let middleArea = CGRect(x: frame.midX - 100, y: frame.midY - 100, width: 200, height: 200)
-        if middleArea.contains(playerSpriteNode.position) && !calibrationCompleted {
+        if middleArea.contains(currentPlayerPosition!) && !calibrationCompleted {
+            print("player in middle area")
             showStep2()
         }
-    }
-    
-    func clamp(value: CGFloat, lower: CGFloat, upper: CGFloat) -> CGFloat {
-        return min(max(value, lower), upper)
     }
     
     func showStep2() {
@@ -105,7 +99,7 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         self.teksInstruksi1!.isHidden = true
         self.teksInstruksi2!.isHidden = false
         self.teksInstruksi2!.zPosition = 1
-
+        
         playAudio(named: "Instruksi2")
         let wait = SKAction.wait(forDuration: 7.0)
         let showStep3 = SKAction.run {
@@ -119,7 +113,7 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         stopGyro()
         self.teksInstruksi2!.isHidden = true
         
-        playerSpriteNode.isHidden = true
+        PlayerSprite.shared.playerSprite.isHidden = true
         beginScreen?.isHidden = false
         beginScreen?.zPosition = 1
         
@@ -140,12 +134,13 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         }
         self.run(SKAction.sequence([wait, playAudio3, waitUntilAudio3Finishes, toggleInstruksi3]))
     }
-
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isScreenTappable && currentlyStep == 1 {
             showStep2()
         }
+        
         if instruksi3Completed {
             changeToIntroScene()
         }
@@ -197,7 +192,7 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
                     let x = data.acceleration.y
                     let y = data.acceleration.x
                     
-                    self?.updatePlayerPosition(accelerationX: CGFloat(-x), accelerationY: CGFloat(y))
+                    PlayerSprite.shared.updatePlayerPosition(accelerationX: CGFloat(-x), accelerationY: CGFloat(y))
                 }
             }
             
@@ -206,11 +201,8 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
     }
     
     func stopGyro() {
-        // Stop the timer
         timer?.invalidate()
         timer = nil
-        
-        // Stop accelerometer updates
         motionManager.stopAccelerometerUpdates()
     }
     
@@ -218,5 +210,3 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         introBGPlayer?.stop()
     }
 }
-
-

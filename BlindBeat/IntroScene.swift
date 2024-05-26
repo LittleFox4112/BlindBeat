@@ -12,12 +12,20 @@ import CoreMotion
 class IntroScene: SKScene, AVAudioPlayerDelegate {
     let manager = CMMotionManager()
     
+<<<<<<< Updated upstream
     var playerSprite: PlayerSprite!
     var attackBox: AttackBox!
     var conductor = Conductor()
     var containerPlayer:SKSpriteNode?
     var background: SKSpriteNode?
     var backgroundEfekSamping: SKSpriteNode?
+=======
+    var attackBox: AttackBox!
+    var conductor = Conductor()
+    var containerPlayer: SKSpriteNode?
+    var background = SKSpriteNode(imageNamed: "background")
+    var backgroundEfekSamping = SKSpriteNode(imageNamed: "efekSamping")
+>>>>>>> Stashed changes
     var introAudioPlayer: AVAudioPlayer?
     
     var isTutorialSkippable: Bool = false
@@ -25,9 +33,21 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
     private var timer: Timer?
     
     override func didMove(to view: SKView) {
-        playerSprite = PlayerSprite(scene: self)
+        // Initialize the singleton instance with the current scene
+        PlayerSprite.shared.initialize(with: self)
+        PlayerSprite.shared.playerShow()
+        
+        // Retrieve last known position
+        if let lastPosition = PlayerSprite.shared.lastKnownPosition {
+            PlayerSprite.shared.playerSprite.position = lastPosition
+        } else {
+            // Handle case where last known position is nil (e.g., set default position)
+            PlayerSprite.shared.playerSprite.position = CGPoint(x: 0, y: 0)
+        }
+        
         attackBox = AttackBox(scene: self)
         containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
+<<<<<<< Updated upstream
         background = scene!.childNode(withName: "background") as? SKSpriteNode
         backgroundEfekSamping = scene!.childNode(withName: "backgroundEfekSamping") as? SKSpriteNode
         
@@ -40,6 +60,19 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
         
         background!.isHidden = false
         backgroundEfekSamping!.isHidden = false
+=======
+        background.zPosition = 0
+        background.position = CGPoint(x: 0, y: 0)
+        background.size = CGSize(width: 2400, height: 1680)
+        backgroundEfekSamping.zPosition = 1
+        backgroundEfekSamping.position = CGPoint(x: 0, y: 0)
+        backgroundEfekSamping.size = CGSize(width: 2400, height: 1680)
+        
+        addChild(background)
+        addChild(backgroundEfekSamping)
+        background.isHidden = false
+        backgroundEfekSamping.isHidden = false
+>>>>>>> Stashed changes
         
         startGyro()
         
@@ -50,6 +83,7 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
             isTutorialSkippable = true
             print(isTutorialSkippable)
         }
+<<<<<<< Updated upstream
         let changeScene = SKAction.run { [self] in
             changeToDodgeScene()
         }
@@ -61,6 +95,13 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
             // User can now tap the screen to change into IntroScene
             changeToDodgeScene()
         }
+=======
+        
+        let changeScene = SKAction.run { [self] in
+            changeToDodgeScene()
+        }
+        self.run(SKAction.sequence([wait, enableTutorialSkip, waitSetPlayer, waitlittle, changeScene]))
+>>>>>>> Stashed changes
     }
     
     func playIntroAudio() {
@@ -88,6 +129,10 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
         dodgeScene.scaleMode = .aspectFill
         dodgeScene.position = CGPoint(x: 0, y: 0)
         let transition = SKTransition.fade(withDuration: 1.0)
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
         self.view?.presentScene(dodgeScene, transition: transition)
     }
     
@@ -102,8 +147,13 @@ class IntroScene: SKScene, AVAudioPlayerDelegate {
                 if let data = self?.manager.accelerometerData {
                     let x = data.acceleration.y
                     let y = data.acceleration.x
+<<<<<<< Updated upstream
 
                     self?.playerSprite.updatePlayerPosition(accelerationX: CGFloat(-x), accelerationY: CGFloat(y))
+=======
+                    
+                    PlayerSprite.shared.updatePlayerPosition(accelerationX: x, accelerationY: y)
+>>>>>>> Stashed changes
                 }
             }
             
