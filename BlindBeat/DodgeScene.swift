@@ -112,7 +112,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     var heartNodes: [SKSpriteNode] = []
     
     override func didMove(to view: SKView) {
-        view.showsPhysics = true
+//        view.showsPhysics = true
         
         playerSprite = PlayerSprite(scene: self)
         attackBox = AttackBox(scene: self)

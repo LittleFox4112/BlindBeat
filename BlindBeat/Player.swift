@@ -32,7 +32,7 @@ class PlayerSprite: NSObject {
         playerSprite?.position = CGPoint(x: 0, y: 0)
 
         if let playerSprite = playerSprite {
-            playerSprite.physicsBody = SKPhysicsBody(circleOfRadius: 35)
+            playerSprite.physicsBody = SKPhysicsBody(circleOfRadius: 25)
             playerSprite.physicsBody?.isDynamic = true
             playerSprite.physicsBody?.affectedByGravity = false
             playerSprite.physicsBody?.allowsRotation = false
