@@ -108,11 +108,11 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     func showUpDownAttack(){
         switch attackPattern {
         case 3:
-            self.attackUpDown?.position.y = 417
+            self.attackUpDown?.position.y = 323.217
         case 4:
-            self.attackUpDown?.position.y = -417
+            self.attackUpDown?.position.y = -323.217
         default:
-            self.attackUpDown?.position.y = 417
+            self.attackUpDown?.position.y = 323.217
         }
     }
     
@@ -143,12 +143,12 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         // Schedule the attackBox to be shown after the specified delay
         let showAttackBoxTask = DispatchWorkItem {
             if pan == -1 {
-                self.attackBox?.position.x = -609.5
+                self.attackBox?.position.x = -326.112
                 self.attackBox?.isHidden = false
                 self.attackBox!.zPosition = 3
 
             } else if pan == 1 {
-                self.attackBox?.position.x = 609.5
+                self.attackBox?.position.x = 326.112
                 self.attackBox?.isHidden = false
                 self.attackBox!.zPosition = 3
 

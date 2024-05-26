@@ -110,7 +110,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     private var timer: Timer?
     
     var timerLagu: SKLabelNode?
-    var playerLive: SKLabelNode?
+    var heartNodes: [SKSpriteNode] = []
     
     override func didMove(to view: SKView) {
         view.showsPhysics = true
@@ -119,13 +119,30 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         attackBox = AttackBox(scene: self)
         containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
         
+        // Initialize heart nodes based on player's health
+        let heartSize = CGSize(width: 165, height: 151)
+        let heartGap: CGFloat = -50
+        
+        // Calculate starting x position so the hearts are centered
+        let totalWidth = CGFloat(playerSprite.playerHealth) * heartSize.width + CGFloat(playerSprite.playerHealth - 1) * heartGap
+        let startX = -totalWidth / 2 + heartSize.width / 2
+        
+        for i in 0..<playerSprite.playerHealth {
+            let heart = SKSpriteNode(imageNamed: "playerHealth")
+            heart.size = heartSize
+            heart.position = CGPoint(x: startX + CGFloat(i) * (heartSize.width + heartGap), y: 643.36)
+            heart.zPosition = 5
+            heartNodes.append(heart)
+            addChild(heart)
+        }
+        
         background.zPosition = 0
         background.position = CGPoint(x: 0, y: 0)
         background.size = CGSize (width: 2400, height: 1680)
         backgroundEfekSamping.zPosition = 1
         backgroundEfekSamping.position = CGPoint(x: 0, y: 0)
         backgroundEfekSamping.size = CGSize (width: 2400, height: 1680)
-
+        
         addChild(background)
         addChild(backgroundEfekSamping)
         background.isHidden = false
@@ -133,15 +150,14 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.contactDelegate = self
         
-        // Use the retained player sprite instance
-            playerSprite.playerShow()
-            if let playerSprite = playerSprite {
-                print("playerSprite in DodgeScene: \(playerSprite)")
-                playerSprite.playerSprite?.position = CGPoint(x: 0, y: 0)
-            } else {
-                print("playerSprite is nil in DodgeScene")
-            }
-            containerPlayer?.isHidden = false
+        playerSprite.playerShow()
+        if let playerSprite = playerSprite {
+            print("playerSprite in DodgeScene: \(playerSprite)")
+            playerSprite.playerSprite?.position = CGPoint(x: 0, y: 0)
+        } else {
+            print("playerSprite is nil in DodgeScene")
+        }
+        containerPlayer?.isHidden = false
         
         // Gyro data take
         manager.startAccelerometerUpdates()
@@ -158,14 +174,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         if let timerLagu = timerLagu {
             addChild(timerLagu)
         }
-        playerLive = SKLabelNode(text: "\(playerSprite.playerHealth)")
-        playerLive?.position = CGPoint(x: 0, y: 500)
-        playerLive?.fontSize = 60
-        playerLive?.fontColor = .black
-        playerLive?.zPosition = 5
-        addChild(playerLive!)
         
-        // Load and play your audio from conductor
         self.conductor.playMainMusic()
     }
     
@@ -180,7 +189,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-        
+    
     func attackPlayer() {
         if playerSprite.playerHealth > 0 {
             if let attack = attackTimes.first {
@@ -188,19 +197,50 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
                     print(conductor.songPosition)
                     print(attack.time)
                     attackBox.attackShow(pan: attack.pan, attackPattern: attack.attackPattern)
-                    // Remove this task from the list after execution
                     attackTimes.removeFirst()
                 }
             }
         } else if playerSprite.playerHealth == 0 {
             playerSprite.playerHealth = -1
+            changeToMissionFailed()
+            stopGyro()
             conductor.stopMainMusic()
+        }
+    }
+    
+    func changeToMissionFailed(){
+        self.removeAllActions()
+        let transition = SKTransition.fade(withDuration: 1.0)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if let missionFailedScene = MissionFailedScene(fileNamed: "MissionFailedScene") {
+                missionFailedScene.scaleMode = .aspectFill
+                missionFailedScene.position = CGPoint(x: 0, y: 0)
+                self.view?.presentScene(missionFailedScene, transition: transition)
+            }
+        }
+    }
+    
+    func changeToMissionSuccess(){
+        self.removeAllActions()
+        let transition = SKTransition.fade(withDuration: 1.0)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if let missionSuccessScene = MissionSuccessScene(fileNamed: "MissionSuccessScene") {
+                missionSuccessScene.scaleMode = .aspectFill
+                missionSuccessScene.position = CGPoint(x: 0, y: 0)
+                self.view?.presentScene(missionSuccessScene, transition: transition)
+            }
         }
     }
     
     override func update(_ currentTime: TimeInterval) {
         if playerSprite.playerSprite?.isHidden == false {
             conductor.updateSongPosition(currentTime: currentTime)
+        }
+        
+        if conductor.songPosition == 140 {
+            changeToMissionSuccess()
         }
         
         enemySpeech()
@@ -211,15 +251,25 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         
         let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
         timerLagu?.text = formattedSongPosition
-        playerLive?.text = "\(playerSprite.playerHealth)"
+        
     }
     
-    // Mapping beat in Xcode
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Print the current song position when the screen is tapped
         let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
         print("Current Song Position: \(formattedSongPosition) seconds")
     }
+    
+    func updateHealthDisplay() {
+        for (index, heart) in heartNodes.enumerated() {
+            if index < playerSprite.playerHealth {
+                heart.texture = SKTexture(imageNamed: "playerHealth")
+            } else {
+                heart.texture = SKTexture(imageNamed: "playerHealthBlank")
+            }
+        }
+    }
+
     
     func didBegin(_ contact: SKPhysicsContact) {
         print(playerSprite.playerHealth)
@@ -228,6 +278,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         if contactMask == (CollisionCategory.player.rawValue | CollisionCategory.attack.rawValue) {
             if playerSprite.playerHealth > 0 && playerSprite.playerInvis == 0 {
                 playerSprite.playerCollision()
+                updateHealthDisplay()
             }
         }
     }
@@ -243,7 +294,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
                 if let data = self?.manager.accelerometerData {
                     let x = data.acceleration.y
                     let y = data.acceleration.x
-
+                    
                     self?.playerSprite.updatePlayerPosition(accelerationX: CGFloat(-x), accelerationY: CGFloat(y))
                 }
             }

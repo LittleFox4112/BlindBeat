@@ -17,7 +17,7 @@ class PlayerSprite: NSObject {
     public var speechPattern : Int = 0
     var enemyAudioPlaying: Bool = false
     
-    var playerHealth: Int = 3
+    var playerHealth: Int = 5
     var playerInvis: Int = 0
     var currentPlayerPosition: CGPoint? = CGPoint(x: 0, y: 0)
     
