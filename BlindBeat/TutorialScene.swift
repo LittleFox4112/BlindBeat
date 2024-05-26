@@ -75,7 +75,6 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         if instruksi3Completed {
             changeToStoryScene()
         }
-        changeToStoryScene()
     }
     
     func changeToStoryScene() {
