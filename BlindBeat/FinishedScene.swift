@@ -13,7 +13,8 @@ class FinishedScene: SKScene, SKPhysicsContactDelegate {
     var finishedScene: SKSpriteNode?
     var finishAudioPlayer: AVAudioPlayer?
     var isScreenTappable: Bool = false
-    
+    var introBGPlayer: AVAudioPlayer?
+
     override func didMove(to view: SKView) {
         finishedScene = childNode(withName: "finish") as? SKSpriteNode
         finishedScene!.isHidden = true
@@ -21,6 +22,7 @@ class FinishedScene: SKScene, SKPhysicsContactDelegate {
         finishedScene?.position = CGPointZero
         finishedScene?.isHidden = false
         
+        playIntroBGMusic()
         let wait = SKAction.wait(forDuration: 2.0)
         let finishAudio = SKAction.run { [self] in
             playFinishAudio()
@@ -31,7 +33,7 @@ class FinishedScene: SKScene, SKPhysicsContactDelegate {
     
     func playFinishAudio() {
         //ganti audio jadi finished scene
-        if let fileURL = Bundle.main.url(forResource: "Audio-musuh-3", withExtension: "mp3") {
+        if let fileURL = Bundle.main.url(forResource: "missionFinishedAudio", withExtension: "mp3") {
             do {
                 finishAudioPlayer = try AVAudioPlayer(contentsOf: fileURL)
                 finishAudioPlayer?.prepareToPlay()
@@ -39,6 +41,20 @@ class FinishedScene: SKScene, SKPhysicsContactDelegate {
                 finishAudioPlayer?.play()
             } catch {
                 print("Error playing audio file: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func playIntroBGMusic() {
+        if let fileURL = Bundle.main.url(forResource: "waitscreen-music", withExtension: "mp3") {
+            do {
+                introBGPlayer = try AVAudioPlayer(contentsOf: fileURL)
+                introBGPlayer?.numberOfLoops = -1 // Loop indefinitely
+                introBGPlayer?.prepareToPlay()
+                introBGPlayer?.volume = 0.3
+                introBGPlayer?.play()
+            } catch {
+                print("Error playing intro background music: \(error.localizedDescription)")
             }
         }
     }

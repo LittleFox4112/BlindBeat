@@ -73,31 +73,18 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if instruksi3Completed {
-            changeToDodgeScene()
+            changeToStoryScene()
         }
-        //nanti DIHILANGIN
-        changeToDodgeScene()
+        changeToStoryScene()
     }
+
     
-    func changeToDodgeScene() {
-        self.removeAllActions()
+    func changeToStoryScene() {
+        let storyScene = StoryScene(size: self.size)
+        storyScene.scaleMode = .aspectFill
         let transition = SKTransition.fade(withDuration: 1.0)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            if let dodgeScene = DodgeScene(fileNamed: "DodgeScene") {
-                dodgeScene.scaleMode = .aspectFill
-                dodgeScene.position = CGPoint(x: 0, y: 0)
-                self.view?.presentScene(dodgeScene, transition: transition)
-            }
-        }
+        self.view?.presentScene(storyScene, transition: transition)
     }
-    
-//    func changeToIntroScene() {
-//        let introScene = IntroScene(size: self.size)
-//        introScene.scaleMode = .aspectFill
-//        let transition = SKTransition.fade(withDuration: 1.0)
-//        self.view?.presentScene(introScene, transition: transition)
-//    }
     
     func playAudio(named fileName: String) {
         if let fileURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {

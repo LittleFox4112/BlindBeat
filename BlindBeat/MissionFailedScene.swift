@@ -54,7 +54,7 @@ class MissionFailedScene: SKScene, SKPhysicsContactDelegate {
     
     func playMissionFailedAudio() {
         //ganti audio jadi mission fail scene
-        if let fileURL = Bundle.main.url(forResource: "Audio-musuh-1", withExtension: "mp3") {
+        if let fileURL = Bundle.main.url(forResource: "missionFailedAudio", withExtension: "mp3") {
             do {
                 missionFailedAudioPlayer = try AVAudioPlayer(contentsOf: fileURL)
                 missionFailedAudioPlayer?.prepareToPlay()
