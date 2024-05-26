@@ -109,7 +109,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
     
     private var timer: Timer?
     
-    var timerLagu: SKLabelNode?
     var heartNodes: [SKSpriteNode] = []
     
     override func didMove(to view: SKView) {
@@ -165,16 +164,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         // Start gyro updates
         startGyro()
         
-        // Check timer and player health
-        timerLagu = SKLabelNode(text: "00:00")
-        timerLagu?.fontSize = 60
-        timerLagu?.fontColor = .black
-        timerLagu?.position = CGPoint(x: 0, y: 400)
-        timerLagu?.zPosition = 5
-        if let timerLagu = timerLagu {
-            addChild(timerLagu)
-        }
-        
         self.conductor.playMainMusic()
     }
     
@@ -208,6 +197,18 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+//    func changeToMissionFailed(){
+//        self.removeAllActions()
+//        let transition = SKTransition.fade(withDuration: 1.0)
+//        
+//        DispatchQueue.main.asyncAfter(deadline: .now()) {
+//            if let missionFailedScene = MissionFailedScene(fileNamed: "MissionFailedScene") {
+//                missionFailedScene.scaleMode = .aspectFill
+//                missionFailedScene.position = CGPoint(x: 0, y: 0)
+//                self.view?.presentScene(missionFailedScene, transition: transition)
+//            }
+//        }
+//    }
     func changeToMissionFailed(){
         self.removeAllActions()
         let transition = SKTransition.fade(withDuration: 1.0)
@@ -216,6 +217,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
             if let missionFailedScene = MissionFailedScene(fileNamed: "MissionFailedScene") {
                 missionFailedScene.scaleMode = .aspectFill
                 missionFailedScene.position = CGPoint(x: 0, y: 0)
+                missionFailedScene.songPosition = self.conductor.songPosition // Set the songPosition here
                 self.view?.presentScene(missionFailedScene, transition: transition)
             }
         }
@@ -248,16 +250,14 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         if playerSprite.playerInvis > 0 {
             playerSprite.playerInvisibility()
         }
-        
-        let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
-        timerLagu?.text = formattedSongPosition
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Print the current song position when the screen is tapped
         let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
         print("Current Song Position: \(formattedSongPosition) seconds")
+        
+//        changeToMissionSuccess()
     }
     
     func updateHealthDisplay() {

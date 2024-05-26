@@ -75,6 +75,8 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         if instruksi3Completed {
             changeToDodgeScene()
         }
+        //nanti DIHILANGIN
+        changeToDodgeScene()
     }
     
     func changeToDodgeScene() {
@@ -90,12 +92,12 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
         }
     }
     
-    func changeToIntroScene() {
-        let introScene = IntroScene(size: self.size)
-        introScene.scaleMode = .aspectFill
-        let transition = SKTransition.fade(withDuration: 1.0)
-        self.view?.presentScene(introScene, transition: transition)
-    }
+//    func changeToIntroScene() {
+//        let introScene = IntroScene(size: self.size)
+//        introScene.scaleMode = .aspectFill
+//        let transition = SKTransition.fade(withDuration: 1.0)
+//        self.view?.presentScene(introScene, transition: transition)
+//    }
     
     func playAudio(named fileName: String) {
         if let fileURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {

@@ -13,20 +13,47 @@ class MissionFailedScene: SKScene, SKPhysicsContactDelegate {
     var missionFailed: SKSpriteNode?
     var missionFailedAudioPlayer: AVAudioPlayer?
     
+    var conductor = Conductor()
+    var timeLived: SKLabelNode?
     var isScreenTappable: Bool = false
     
+    var songPosition: Double = 0.0 // Add this property
+    
     override func didMove(to view: SKView) {
-        missionFailed = childNode(withName: "missionFailed") as? SKSpriteNode
+        backgroundColor = SKColor.black
+        
+        missionFailed = childNode(withName: "failed") as? SKSpriteNode
+        missionFailed?.isHidden = true
+        missionFailed?.zPosition = 1
+        missionFailed?.position = CGPointZero
         missionFailed?.isHidden = false
-        let wait = SKAction.wait(forDuration: 2.0)
+        
+        // Initialize the timeLived label
+        timeLived = SKLabelNode(fontNamed: "Inter")
+        timeLived?.fontSize = 40
+        timeLived?.fontColor = SKColor.white
+        timeLived?.position = CGPoint(x: 0, y: 400)
+        timeLived?.zPosition = 5
+        
+        if let timeLived = timeLived {
+            addChild(timeLived)
+        }
+        
+        // Set the initial text for timeLived label with the passed songPosition
+        let formattedSongPosition = String(format: "%.2f", songPosition)
+        timeLived?.text = "You Survived : \(formattedSongPosition) seconds"
+        
+        isScreenTappable = true
+        
+        let wait = SKAction.wait(forDuration: 1.0)
         let missionFailedAudio = SKAction.run { [self] in
             playMissionFailedAudio()
-            isScreenTappable = true
         }
         self.run(SKAction.sequence([wait, missionFailedAudio]))
     }
     
     func playMissionFailedAudio() {
+        //ganti audio jadi mission fail scene
         if let fileURL = Bundle.main.url(forResource: "Audio-musuh-1", withExtension: "mp3") {
             do {
                 missionFailedAudioPlayer = try AVAudioPlayer(contentsOf: fileURL)

@@ -39,6 +39,8 @@
 		BBE0E75E2C02F79800CAD342 /* MissionSuccessScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BBE0E75D2C02F79800CAD342 /* MissionSuccessScene.sks */; };
 		BBE0E7602C02FF6000CAD342 /* MissionFailedScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE0E75F2C02FF6000CAD342 /* MissionFailedScene.swift */; };
 		BBE0E7622C0301F100CAD342 /* MissionSuccessScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE0E7612C0301F100CAD342 /* MissionSuccessScene.swift */; };
+		BBE0E7642C03092C00CAD342 /* FinishedScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BBE0E7632C03092C00CAD342 /* FinishedScene.sks */; };
+		BBE0E7662C030AA700CAD342 /* FinishedScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE0E7652C030AA700CAD342 /* FinishedScene.swift */; };
 		BBEAE10D2BFE276300572CA8 /* Hit-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE10C2BFE276300572CA8 /* Hit-sound.mp3 */; };
 		BBEAE1182BFE398B00572CA8 /* Beam-Attack-Atas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE1162BFE398B00572CA8 /* Beam-Attack-Atas.mp3 */; };
 		BBEAE1192BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBEAE1172BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 */; };
@@ -102,6 +104,8 @@
 		BBE0E75D2C02F79800CAD342 /* MissionSuccessScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MissionSuccessScene.sks; sourceTree = "<group>"; };
 		BBE0E75F2C02FF6000CAD342 /* MissionFailedScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionFailedScene.swift; sourceTree = "<group>"; };
 		BBE0E7612C0301F100CAD342 /* MissionSuccessScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionSuccessScene.swift; sourceTree = "<group>"; };
+		BBE0E7632C03092C00CAD342 /* FinishedScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FinishedScene.sks; sourceTree = "<group>"; };
+		BBE0E7652C030AA700CAD342 /* FinishedScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedScene.swift; sourceTree = "<group>"; };
 		BBEAE10C2BFE276300572CA8 /* Hit-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Hit-sound.mp3"; path = "../../../BlindBeat sounds/Hit-sound.mp3"; sourceTree = "<group>"; };
 		BBEAE1162BFE398B00572CA8 /* Beam-Attack-Atas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-Atas.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-Atas.mp3"; sourceTree = "<group>"; };
 		BBEAE1172BFE398B00572CA8 /* Beam-Attack-Bawah.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Beam-Attack-Bawah.mp3"; path = "../../../BlindBeat sounds/Beam-Attack-Bawah.mp3"; sourceTree = "<group>"; };
@@ -167,12 +171,14 @@
 				BBE0E7592C02F69000CAD342 /* MissionFailedScene.sks */,
 				BBE0E75D2C02F79800CAD342 /* MissionSuccessScene.sks */,
 				BB87F35E2C01168A00444B8F /* TutorialScene.sks */,
+				BBE0E7632C03092C00CAD342 /* FinishedScene.sks */,
 				BBE0E7502C01A70F00CAD342 /* IntroScene.sks */,
 				BB4E87C32BF4632C00C08965 /* Actions.sks */,
 				BB4E87F42BF4698500C08965 /* DodgeScene.swift */,
 				BBE0E75F2C02FF6000CAD342 /* MissionFailedScene.swift */,
 				BBE0E7612C0301F100CAD342 /* MissionSuccessScene.swift */,
 				BB87F3602C0116BE00444B8F /* TutorialScene.swift */,
+				BBE0E7652C030AA700CAD342 /* FinishedScene.swift */,
 				BBE0E7522C01A74B00CAD342 /* IntroScene.swift */,
 				BBFC3BBE2BF74C460098147D /* CollisionCategory.swift */,
 				BB4E880A2BF5FBAB00C08965 /* Conductor.swift */,
@@ -361,6 +367,7 @@
 				BB4E88092BF4C30500C08965 /* AttackSound.wav in Resources */,
 				BBE0E75E2C02F79800CAD342 /* MissionSuccessScene.sks in Resources */,
 				BB87F35F2C01168A00444B8F /* TutorialScene.sks in Resources */,
+				BBE0E7642C03092C00CAD342 /* FinishedScene.sks in Resources */,
 				BB87F35D2C00AFE400444B8F /* Audio-musuh-1.mp3 in Resources */,
 				BB87F35B2C00AFE400444B8F /* Audio-musuh-2.mp3 in Resources */,
 				BBE0E7582C02D70B00CAD342 /* VideoInstruksi.mp4 in Resources */,
@@ -390,6 +397,7 @@
 			files = (
 				BB4E87F52BF4698500C08965 /* DodgeScene.swift in Sources */,
 				BBFC3BBF2BF74C460098147D /* CollisionCategory.swift in Sources */,
+				BBE0E7662C030AA700CAD342 /* FinishedScene.swift in Sources */,
 				BB4E880B2BF5FBAB00C08965 /* Conductor.swift in Sources */,
 				BBFC3BC72BFC6E7B0098147D /* Player.swift in Sources */,
 				BBE0E7602C02FF6000CAD342 /* MissionFailedScene.swift in Sources */,
