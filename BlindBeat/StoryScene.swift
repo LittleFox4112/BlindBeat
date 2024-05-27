@@ -18,17 +18,18 @@ class StoryScene: SKScene {
         backgroundColor = SKColor.black
         
         playStoryVideo()
-        
-        let waitVideo = SKAction.wait(forDuration: 107.0)
+        let waitForSkipTutorial = SKAction.wait(forDuration: 31.0)
+        let enableSkip = SKAction.run { [self] in
+            isVideoPlaying = false
+        }
+        let waitVideo = SKAction.wait(forDuration: 76.0)
         let showDodgeScene = SKAction.run { [self] in
             self.changeToDodgeScene()
         }
-        self.run(SKAction.sequence([waitVideo, showDodgeScene]))
+        self.run(SKAction.sequence([waitForSkipTutorial, enableSkip, waitVideo, showDodgeScene]))
     }
     
     func playStoryVideo() {
-        guard !isVideoPlaying else { return } // Prevent the video from being called twice
-        
         print("Attempting to play story video")
         storyVid.position = CGPointZero
         storyVid.size = self.size
@@ -44,6 +45,9 @@ class StoryScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if isVideoPlaying == false {
+//            changeToDodgeScene()
+//        }
         changeToDodgeScene()
     }
     
@@ -62,6 +66,8 @@ class StoryScene: SKScene {
     }
     
     override func willMove(from view: SKView) {
+        stopStoryVideo()
         self.removeAllActions()
+        changeToDodgeScene()
     }
 }

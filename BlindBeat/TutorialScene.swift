@@ -72,9 +72,11 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if instruksi3Completed {
-            changeToStoryScene()
-        }
+        audioPlayer?.stop()
+        introBGPlayer?.stop()
+
+        removeAllActions()
+        changeToStoryScene()
     }
     
     func changeToStoryScene() {
@@ -114,6 +116,7 @@ class TutorialScene: SKScene, AVAudioPlayerDelegate {
     }
     
     override func willMove(from view: SKView) {
+        audioPlayer?.stop()
         introBGPlayer?.stop()
     }
 }

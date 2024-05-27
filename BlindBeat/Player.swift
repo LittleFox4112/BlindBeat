@@ -92,11 +92,11 @@ class PlayerSprite: NSObject {
     }
     
     func playHitAudio(){
-        hitAudioPlayer?.volume = 0.6
+        hitAudioPlayer?.volume = 0.4
         hitAudioPlayer?.play()
         conductor.setMainMusicVolume(volume: 0.1)
         if playerInvis == 0 {
-            conductor.setMainMusicVolume(volume: 0.2)
+            conductor.setMainMusicVolume(volume: 0.25)
         }
     }
     

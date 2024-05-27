@@ -118,10 +118,12 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         attackBox = AttackBox(scene: self)
         containerPlayer = scene!.childNode(withName: "containerPlayer") as? SKSpriteNode
         
+        // TODO: Late Initialisation, should be make as component in independent function: pisah function
         // Initialize heart nodes based on player's health
         let heartSize = CGSize(width: 165, height: 151)
         let heartGap: CGFloat = -50
         
+        // TODO: Separate calculate and initialisation
         // Calculate starting x position so the hearts are centered
         let totalWidth = CGFloat(playerSprite.playerHealth) * heartSize.width + CGFloat(playerSprite.playerHealth - 1) * heartGap
         let startX = -totalWidth / 2 + heartSize.width / 2
@@ -197,18 +199,6 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-//    func changeToMissionFailed(){
-//        self.removeAllActions()
-//        let transition = SKTransition.fade(withDuration: 1.0)
-//        
-//        DispatchQueue.main.asyncAfter(deadline: .now()) {
-//            if let missionFailedScene = MissionFailedScene(fileNamed: "MissionFailedScene") {
-//                missionFailedScene.scaleMode = .aspectFill
-//                missionFailedScene.position = CGPoint(x: 0, y: 0)
-//                self.view?.presentScene(missionFailedScene, transition: transition)
-//            }
-//        }
-//    }
     func changeToMissionFailed(){
         self.removeAllActions()
         let transition = SKTransition.fade(withDuration: 1.0)
@@ -256,8 +246,7 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         // Print the current song position when the screen is tapped
         let formattedSongPosition = String(format: "%.3f", conductor.songPosition)
         print("Current Song Position: \(formattedSongPosition) seconds")
-        
-//        changeToMissionSuccess()
+
     }
     
     func updateHealthDisplay() {
@@ -313,9 +302,10 @@ class DodgeScene: SKScene, SKPhysicsContactDelegate {
         manager.stopAccelerometerUpdates()
     }
     
-    
+    // TODO: nested function calling
     override func willMove(from view: SKView) {
         // Ensure to stop gyro updates when the scene is removed from the view
+        removeAllActions()
         stopGyro()
     }
 }

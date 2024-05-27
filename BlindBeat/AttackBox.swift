@@ -5,13 +5,6 @@
 //  Created by Quinela Wensky on 15/05/24.
 //
 
-//
-//  attackCode.swift
-//  BlindBeat
-//
-//  Created by Quinela Wensky on 15/05/24.
-//
-
 import SpriteKit
 import AVFoundation
 
@@ -27,8 +20,8 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
     // Attack sound player
     let attacksound1 = Bundle.main.url(forResource: "Beam-Attack-1", withExtension: "mp3")
     let attacksound2 = Bundle.main.url(forResource: "Beam-Attack-2", withExtension: "mp3")
-    let attacksound3 = Bundle.main.url(forResource: "Beam-Attack-Atas", withExtension: "mp3")
-    let attacksound4 = Bundle.main.url(forResource: "Beam-Attack-Bawah", withExtension: "mp3")
+    let attacksound3 = Bundle.main.url(forResource: "Beam-Attack-Bawah", withExtension: "mp3")
+    let attacksound4 = Bundle.main.url(forResource: "Beam-Attack-Atas", withExtension: "mp3")
     
     // Collection to store scheduled attack tasks
     private var scheduledAttackTasks: [DispatchWorkItem] = []
@@ -79,10 +72,10 @@ class AttackBox: NSObject, AVAudioPlayerDelegate {
         switch attackPattern {
         case 1:
             soundFileName = attacksound1
-            attackAudioPlayer?.volume = 1.5
+            attackAudioPlayer?.volume = 1.6
         case 2:
             soundFileName = attacksound2
-            attackAudioPlayer?.volume = 1.5
+            attackAudioPlayer?.volume = 1.6
         case 3:
             soundFileName = attacksound3
             attackAudioPlayer?.volume = 1
